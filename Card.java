@@ -19,7 +19,7 @@ public class Card {
     public class Value {
         final static int SKIP = 10;
         final static int REVERSE = 11;
-        final static int DRAW2 = 12;
+        final static int DRAW = 12;
     }
 
     /**
@@ -32,7 +32,7 @@ public class Card {
         /**
          * For normal cards, the number on the card.
          * For special cards, encodes the card's function.
-         * For wild cards, indicates whether it is a draw 4 or a normal wild.
+         * DRAW attribute is used both for Wild Draw 4 and Draw 2 cards.
          */
         this.value = val;
         this.color = col;
@@ -43,7 +43,7 @@ public class Card {
      * @return true if card skips next player.
      */
     public boolean isSkip() {
-        return (value == 10);
+        return (value == Value.SKIP);
     }
 
     /**
@@ -51,7 +51,7 @@ public class Card {
      * @return true if card reverses play order.
      */
     public boolean isReverse() {
-        return (value == 11);
+        return (value == Value.REVERSE);
     }
 
     /**
@@ -59,7 +59,7 @@ public class Card {
      * @return true if card causes next player to draw two more cards.
      */
     public boolean isDrawTwo() {
-        return (value == 12);
+        return (color != Color.WILD && value == Value.DRAW);
     }
 
     /**
@@ -67,6 +67,10 @@ public class Card {
      * @return true if card can be played on any other card, changing the play color.
      */
     public boolean isWild() {
-        return (color == WILD);
+        return (color == Color.WILD);
+    }
+
+    public boolean isDrawFour() {
+        return (color == Color.WILD && value == Value.DRAW);
     }
 }
