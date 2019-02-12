@@ -3,14 +3,24 @@
  * @author Brennon Miller
  */
 public class Card {
-    final int value;
-    final int color;
+    // It's safe to make these public because they're immutable.
+    public final int value;
+    public final int color;
 
-    final static int RED = 1;
-    final static int YELLOW = 2; 
-    final static int GREEN = 3;
-    final static int BLUE = 4;
-    final static int WILD = 0;
+    // Use color names in place of numbers for readability
+    public class Color {
+        final static int RED = 1;
+        final static int YELLOW = 2; 
+        final static int GREEN = 3;
+        final static int BLUE = 4;
+        final static int WILD = 0;
+    }
+
+    public class Value {
+        final static int SKIP = 10;
+        final static int REVERSE = 11;
+        final static int DRAW2 = 12;
+    }
 
     /**
      * Constructor
@@ -18,7 +28,7 @@ public class Card {
      * So, the constructor is not randomized; rather, a loop will determine how
      * many of each card is added.
      */
-    public Card(int val, String col) {
+    public Card(int val, int col) {
         /**
          * For normal cards, the number on the card.
          * For special cards, encodes the card's function.
@@ -57,6 +67,6 @@ public class Card {
      * @return true if card can be played on any other card, changing the play color.
      */
     public boolean isWild() {
-        return color == WILD;
+        return (color == WILD);
     }
 }
