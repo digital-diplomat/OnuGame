@@ -5,7 +5,11 @@
  */
 public class OnuGame {
 
-    // Main program loop.
+    private OnuGame() {}    // Private constructor prevents instantiation.
+
+    /**
+     * Main program loop.
+     */
     public static void main() {
         List<Card> deck = new AList(108);
         List<Card> discard = new AList(108);
