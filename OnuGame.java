@@ -1,3 +1,5 @@
+import java.awt.List;
+import java.util.Random;
 /**
  * OnuGame: An UNO clone for the command line.
  * @author Vaughn Coates
@@ -32,7 +34,13 @@ public class OnuGame {
      * @return deck with items shuffled.
      */
     private List<Card> shuffleFrom(List<Card> fromDeck) {
-        // TODO: Implement
+        List<Card> newDeck = new Alist<>();
+        Random rand = new Random();
+
+        for(int maxIndex = 108; maxIndex > 0; maxIndex--){
+            newDeck.add(fromDeck.remove(rand.nextInt() % maxIndex));
+        }
+        return newDeck;
     }
 
     /**
