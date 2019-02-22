@@ -31,7 +31,7 @@ public class OnuGame {
      * @param fromDeck deck to pull from
      * @return deck with items shuffled.
      */
-    protected List<Card> shuffleFrom(List<Card> fromDeck) {
+    private List<Card> shuffleFrom(List<Card> fromDeck) {
         // TODO: Implement
     }
 }

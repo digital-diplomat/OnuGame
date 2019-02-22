@@ -9,19 +9,16 @@ public class Card {
     public final int color;
 
     // Use color names in place of numbers for readability
-    public class Color {
-        final static int RED = 1;
-        final static int YELLOW = 2;
-        final static int GREEN = 3;
-        final static int BLUE = 4;
-        final static int WILD = 0;
-    }
-
-    public class Value {
-        final static int SKIP = 10;
-        final static int REVERSE = 11;
-        final static int DRAW = 12;
-    }
+    final static int RED = 1;
+    final static int YELLOW = 2;
+    final static int GREEN = 3;
+    final static int BLUE = 4;
+    final static int WILD = 0;
+    
+    // Same for special value names.
+    final static int SKIP = 10;
+    final static int REVERSE = 11;
+    final static int DRAW = 12;
 
     /**
      * Constructor
@@ -44,7 +41,7 @@ public class Card {
      * @return true if card skips next player.
      */
     public boolean isSkip() {
-        return (value == Value.SKIP);
+        return (value == SKIP);
     }
 
     /**
@@ -52,7 +49,7 @@ public class Card {
      * @return true if card reverses play order.
      */
     public boolean isReverse() {
-        return (value == Value.REVERSE);
+        return (value == REVERSE);
     }
 
     /**
@@ -60,7 +57,7 @@ public class Card {
      * @return true if card causes next player to draw two more cards.
      */
     public boolean isDrawTwo() {
-        return (color != Color.WILD && value == Value.DRAW);
+        return (color != WILD && value == DRAW);
     }
 
     /**
@@ -68,7 +65,7 @@ public class Card {
      * @return true if card can be played on any other card, changing the play color.
      */
     public boolean isWild() {
-        return (color == Color.WILD);
+        return (color == WILD);
     }
 
     /**
@@ -76,6 +73,6 @@ public class Card {
      * @return true if card acts as a wild AND next player draws 4 cards.
      */
     public boolean isDrawFour() {
-        return (color == Color.WILD && value == Value.DRAW);
+        return (color == WILD && value == DRAW);
     }
 }
