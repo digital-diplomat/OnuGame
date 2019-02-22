@@ -34,10 +34,13 @@ public class OnuGame {
      * @return deck with items shuffled.
      */
     private List<Card> shuffleFrom(List<Card> fromDeck) {
+        //our new deck and random Object
         List<Card> newDeck = new Alist<>();
         Random rand = new Random();
-
+        
         for(int maxIndex = 108; maxIndex > 0; maxIndex--){
+            //grabs a random card from the deck we've been given and places it
+            //in our newDeck
             newDeck.add(fromDeck.remove(rand.nextInt() % maxIndex));
         }
         return newDeck;
