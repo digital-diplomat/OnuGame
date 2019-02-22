@@ -1,5 +1,5 @@
 /**
- * The base element of the (text-based?) ONU card game.
+ * The base element of the text-based ONU card game.
  * @author Brennon Miller
  */
 
