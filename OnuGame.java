@@ -34,4 +34,33 @@ public class OnuGame {
     private List<Card> shuffleFrom(List<Card> fromDeck) {
         // TODO: Implement
     }
+
+    /**
+     * Generates new deck in color/value order; will need to be shuffled.
+     * @return new ordered deck (List) of cards.
+     */
+    private List<Card> newDeck() {
+        int[] values = {0, 1, 1, 2, 2, 3, 3, 4, 4,
+                        5, 5, 6, 6, 7, 7, 8, 8, 9, 9,
+                        Card.SKIP, Card.SKIP, Card.REVERSE, Card.REVERSE,
+                        Card.DRAW, Card.DRAW};
+
+        int[] colors = {Card.RED, Card.YELLOW, Card.GREEN, Card.BLUE};
+
+        List<Card> deck = new AList();
+
+        // Add color cards.
+        for (int c : colors) {
+            for (int v : values) {
+                deck.add(new Card(c, v));
+            }
+        }
+
+        // Add wildcards
+        for (int i = 0; i < 4; i++) {
+            deck.add(new Card(Card.WILD, 0));
+            deck.add(new Card(Card.WILD, Card.DRAW));
+        }
+        return deck;
+    }
 }
