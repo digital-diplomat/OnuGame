@@ -4,17 +4,30 @@
  * @author Brennon Miller
  */
 public class OnuGame {
+
+    // Main program loop.
     public static void main() {
-        List<Card> deck = new AList();
-        List<Card> discard = new AList();
+        List<Card> deck = new AList(108);
+        List<Card> discard = new AList(108);
 
         List<Card> player1 = new LList();
         List<Card> player2 = new LList();
         List<Card> player3 = new LList();
 
-        // TODO: Work out shuffling algorithm.
-        // Perhaps within `List`?
-
         // TODO: Implement game loop.
+
+    }
+
+    /**
+     * Pulls random cards from the old deck until the old deck runs out,
+     * returning a deck in which these cards are placed in random order.
+     * 
+     * Known issue: calling on a deck without returning to a new deck deletes
+     * the deck permanently.
+     * @param fromDeck deck to pull from
+     * @return deck with items shuffled.
+     */
+    protected List<Card> shuffleFrom(List<Card> fromDeck) {
+        // TODO: Implement
     }
 }
