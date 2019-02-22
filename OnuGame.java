@@ -20,9 +20,9 @@ public class OnuGame {
         LList<Card> player2 = new LList<>();
         LList<Card> player3 = new LList<>();
 
-        /*
+        
 
-        Testing loop for deck generation and randomization.
+        // Testing loop for deck generation and randomization.
 
         discard = newDeck();
         for (Card c : discard) {
@@ -39,7 +39,7 @@ public class OnuGame {
             System.out.print(c.value);
             System.out.println();
         }
-        */
+        
 
         // TODO: Implement game loop.
 
@@ -54,9 +54,9 @@ public class OnuGame {
      * @param fromDeck deck to pull from
      * @return deck with items shuffled.
      */
-    private AList<Card> shuffleFrom(AList<Card> fromDeck) {
+    private static AList<Card> shuffleFrom(AList<Card> fromDeck) {
         //our new deck and random Object
-        List<Card> newDeck = new AList<>();
+        AList<Card> newDeck = new AList<>();
         Random rand = new Random();
         
         for(int maxIndex = 108; maxIndex > 0; maxIndex--){
