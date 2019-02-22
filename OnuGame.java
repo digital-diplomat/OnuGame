@@ -20,8 +20,7 @@ public class OnuGame {
         LList<Card> player2 = new LList<>();
         LList<Card> player3 = new LList<>();
 
-        
-
+        /*
         // Testing loop for deck generation and randomization.
 
         discard = newDeck();
@@ -39,7 +38,7 @@ public class OnuGame {
             System.out.print(c.value);
             System.out.println();
         }
-        
+        */
 
         // TODO: Implement game loop.
 
