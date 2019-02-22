@@ -13,6 +13,7 @@ public class OnuGame {
      * Main program loop.
      */
     public static void main(String[] args) {
+        Card currentCard;   // Card that was played last.
         AList<Card> deck = new AList<>(108);
         AList<Card> discard = new AList<>(108);
 
