@@ -12,13 +12,29 @@ public class OnuGame {
     /**
      * Main program loop.
      */
-    public static void main() {
-        List<Card> deck = new AList(108);
-        List<Card> discard = new AList(108);
+    public static void main(String[] args) {
+        AList<Card> deck = new AList<>(108);
+        AList<Card> discard = new AList<>(108);
 
-        List<Card> player1 = new LList();
-        List<Card> player2 = new LList();
-        List<Card> player3 = new LList();
+        LList<Card> player1 = new LList<>();
+        LList<Card> player2 = new LList<>();
+        LList<Card> player3 = new LList<>();
+
+        discard = newDeck();
+        for (Card c : discard) {
+            System.out.print(c.color);
+            System.out.print(" / ");
+            System.out.print(c.value);
+            System.out.println();
+        }
+        deck = shuffleFrom(discard);
+        System.out.println("Shuffling...");
+        for (Card c : deck) {
+            System.out.print(c.color);
+            System.out.print(" / ");
+            System.out.print(c.value);
+            System.out.println();
+        }
 
         // TODO: Implement game loop.
 
@@ -33,12 +49,12 @@ public class OnuGame {
      * @param fromDeck deck to pull from
      * @return deck with items shuffled.
      */
-    private List<Card> shuffleFrom(List<Card> fromDeck) {
-        List<Card> newDeck = new Alist<>();
+    private static AList<Card> shuffleFrom(AList<Card> fromDeck) {
+        AList<Card> newDeck = new AList<>();
         Random rand = new Random();
 
         for(int maxIndex = 108; maxIndex > 0; maxIndex--){
-            newDeck.add(fromDeck.remove(rand.nextInt() % maxIndex));
+            newDeck.add(fromDeck.remove(Math.abs(rand.nextInt()) % maxIndex));
         }
         return newDeck;
     }
@@ -47,7 +63,7 @@ public class OnuGame {
      * Generates new deck in color/value order; will need to be shuffled.
      * @return new ordered deck (List) of cards.
      */
-    private List<Card> newDeck() {
+    private static AList<Card> newDeck() {
         int[] values = {0, 1, 1, 2, 2, 3, 3, 4, 4,
                         5, 5, 6, 6, 7, 7, 8, 8, 9, 9,
                         Card.SKIP, Card.SKIP, Card.REVERSE, Card.REVERSE,
@@ -55,7 +71,7 @@ public class OnuGame {
 
         int[] colors = {Card.RED, Card.YELLOW, Card.GREEN, Card.BLUE};
 
-        List<Card> deck = new AList();
+        AList<Card> deck = new AList<>();
 
         // Add color cards.
         for (int c : colors) {

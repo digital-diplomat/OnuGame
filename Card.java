@@ -26,13 +26,16 @@ public class Card {
      * So, the constructor is not randomized; rather, a loop will determine how
      * many of each card is added.
      */
-    public Card(int val, int col) {
+    public Card(int col, int val) {
         /**
          * For normal cards, the number on the card.
          * For special cards, encodes the card's function.
          * DRAW attribute is used both for Wild Draw 4 and Draw 2 cards.
          */
         this.value = val;
+        /**
+         * Indicates what color the card has, or if it is WILD.
+         */
         this.color = col;
     }
 
