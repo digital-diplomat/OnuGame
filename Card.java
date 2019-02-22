@@ -6,7 +6,7 @@
 public class Card {
     // It's safe to make these public because they're immutable.
     public final int value;
-    public final int color;
+    public final int color; // I was here.
 
     // Use color names in place of numbers for readability
     public class Color {
