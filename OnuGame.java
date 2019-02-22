@@ -1,4 +1,3 @@
-import java.awt.List;
 import java.util.Random;
 /**
  * OnuGame: An UNO clone for the command line.
@@ -20,6 +19,10 @@ public class OnuGame {
         LList<Card> player2 = new LList<>();
         LList<Card> player3 = new LList<>();
 
+        /*
+
+        Testing loop for deck generation and randomization.
+
         discard = newDeck();
         for (Card c : discard) {
             System.out.print(c.color);
@@ -35,6 +38,7 @@ public class OnuGame {
             System.out.print(c.value);
             System.out.println();
         }
+        */
 
         // TODO: Implement game loop.
 
