@@ -4,14 +4,14 @@
  */
 
 public class Card {
-    // It's safe to make these public because they're immutable.
+    // It's safe to make these public because they're immutable (final).
     public final int value;
     public final int color;
 
     // Use color names in place of numbers for readability
     public class Color {
         final static int RED = 1;
-        final static int YELLOW = 2; 
+        final static int YELLOW = 2;
         final static int GREEN = 3;
         final static int BLUE = 4;
         final static int WILD = 0;
