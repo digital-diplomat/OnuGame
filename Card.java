@@ -2,6 +2,7 @@
  * The base element of the (text-based?) ONU card game.
  * @author Brennon Miller
  */
+
 public class Card {
     // It's safe to make these public because they're immutable.
     public final int value;
@@ -70,6 +71,10 @@ public class Card {
         return (color == Color.WILD);
     }
 
+    /**
+     * Check for wild draw four
+     * @return true if card acts as a wild AND next player draws 4 cards.
+     */
     public boolean isDrawFour() {
         return (color == Color.WILD && value == Value.DRAW);
     }
