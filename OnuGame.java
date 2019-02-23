@@ -1,6 +1,5 @@
-// Testing use of branches on GitHub/VS Code.
 // If this differentiates branches correctly, this comment will appear
-// In only the branch 'brennon-edits'.
+// in only the branch 'brennon-edits'.
 
 import java.util.Random;
 
