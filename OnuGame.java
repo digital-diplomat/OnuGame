@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 // If this differentiates branches correctly, this comment will appear
 // in only the branch 'brennon-edits'.
 
+=======
+>>>>>>> master
 import java.util.Random;
 
 /**
