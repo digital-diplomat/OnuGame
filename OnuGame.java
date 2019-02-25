@@ -1,7 +1,7 @@
+// OnuGame.java: A Command-Line UNOⓇ clone.
+
 import java.util.Random;
 import java.util.Scanner;
-
-import com.sun.jmx.remote.internal.ArrayQueue;
 
 /**
  * OnuGame: An UNO clone for the command line.
