@@ -73,7 +73,7 @@ public class OnuGame {
             }
             if (currentCard.isReverse()) {
                 // TODO: Reverse player order.
-            }
+            }3
 
             // TODO: Have current player put a card onto the stack, or draw a
             // card if unable to do so.
