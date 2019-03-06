@@ -146,8 +146,6 @@ public class OnuGame {
         order.addLast(order.removeLast());
     }
 
-
-
     private static void drawCards(int cardCount, AList<Card> deck) {
         // TODO: Implement
     }
