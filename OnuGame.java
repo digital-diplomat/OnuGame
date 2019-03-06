@@ -26,6 +26,10 @@ public class OnuGame {
 
         LinkedDeque<LList<Card>> playerOrder = new LinkedDeque<LList<Card>>();
 
+        playerOrder.addLast(player1);
+        playerOrder.addLast(player2);
+        playerOrder.addLast(player3);
+
         Scanner pInput = new Scanner(System.in);
 
         // Create new deck and shuffle it.
@@ -45,6 +49,35 @@ public class OnuGame {
         currentCard = deck.remove(0);
 
         // TODO: Implement game loop.
+        while (true) {
+            if (currentCard.isDrawTwo()) {
+                if (deck.size() < 2) {
+                    for (int i = deck.size(); i >= 0; i--) {
+                        discard.add(deck.remove(0));
+                    }
+                    deck = shuffleFrom(discard);
+                }
+                // TODO: Have player draw cards.
+            }
+            if (currentCard.isDrawFour()) {
+                if (deck.size() < 4) {
+                    for (int i = deck.size(); i >= 0; i--) {
+                        discard.add(deck.remove(0));
+                    }
+                    deck = shuffleFrom(discard);
+                }
+                // TODO: Have player draw FOUR cards.
+            }
+            if (currentCard.isSkip() || currentCard.isDrawTwo() || currentCard.isDrawFour()) {
+                nextTurn(playerOrder);
+            }
+            if (currentCard.isReverse()) {
+                // TODO: Reverse player order.
+            }
+
+            // TODO: Have current player put a card onto the stack, or draw a
+            // card if unable to do so.
+        }
 
     }
 
@@ -64,7 +97,7 @@ public class OnuGame {
         AList<Card> newDeck = new AList<>();
         Random rand = new Random();
         
-        for(int maxIndex = 108; maxIndex > 0; maxIndex--){
+        for(int maxIndex = fromDeck.size(); maxIndex > 0; maxIndex--){
             newDeck.add(fromDeck.remove(Math.abs(rand.nextInt()) % maxIndex));
         }
         return newDeck;
@@ -99,9 +132,7 @@ public class OnuGame {
         return deck;
     }
 
-    /**
-     * 
-     */
+    // DEBUG: Do not use.
     private static void testLoop(AList<Card> deck) {
         for (Card c : deck) {
             System.out.print(c.color);
@@ -109,5 +140,13 @@ public class OnuGame {
             System.out.print(c.value);
             System.out.println();
          }
+    }
+
+    private static void nextTurn(LinkedDeque<LList<Card>> order) {
+        order.addLast(order.removeLast());
+    }
+
+    private static void drawCards(int cardCount, AList<Card> deck) {
+        // TODO: Implement
     }
 }
