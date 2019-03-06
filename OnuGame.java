@@ -1,4 +1,7 @@
+// OnuGame.java: A Command-Line UNOⓇ clone.
+
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * OnuGame: An UNO clone for the command line.
@@ -21,29 +24,31 @@ public class OnuGame {
         LList<Card> player2 = new LList<>();
         LList<Card> player3 = new LList<>();
 
-        /*
-        // Testing loop for deck generation and randomization.
+        LinkedDeque<LList<Card>> playerOrder = new LinkedDeque<LList<Card>>();
 
+        Scanner pInput = new Scanner(System.in);
+
+        // Create new deck and shuffle it.
         discard = newDeck();
-        for (Card c : discard) {
-            System.out.print(c.color);
-            System.out.print(" / ");
-            System.out.print(c.value);
-            System.out.println();
-        }
+//      testLoop(deck)
+//      System.out.println("Shuffling...");
         deck = shuffleFrom(discard);
-        System.out.println("Shuffling...");
-        for (Card c : deck) {
-            System.out.print(c.color);
-            System.out.print(" / ");
-            System.out.print(c.value);
-            System.out.println();
+//      testLoop(deck)
+
+        // Deal out cards
+        for (int i = 0; i < 7; i++) {
+            player1.add(deck.remove(0));
+            player2.add(deck.remove(0));
+            player3.add(deck.remove(0));
         }
-        */
+        // Deal first card.
+        currentCard = deck.remove(0);
 
         // TODO: Implement game loop.
 
     }
+
+// ======== Helper Functions Below ========
 
     /**
      * Pulls random cards from the old deck until the old deck runs out,
@@ -92,5 +97,17 @@ public class OnuGame {
             deck.add(new Card(Card.WILD, Card.DRAW));
         }
         return deck;
+    }
+
+    /**
+     * 
+     */
+    private static void testLoop(AList<Card> deck) {
+        for (Card c : deck) {
+            System.out.print(c.color);
+            System.out.print(" / ");
+            System.out.print(c.value);
+            System.out.println();
+         }
     }
 }
