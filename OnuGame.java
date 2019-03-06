@@ -128,7 +128,7 @@ public class OnuGame {
         return deck;
     }
 
-    // DEBUG: Do not use.
+    /* DEBUG: Do not use.
     private static void testLoop(List<Card> deck) {
         for (Card c : deck) {
             System.out.print(c.color);
@@ -137,6 +137,7 @@ public class OnuGame {
             System.out.println();
          }
     }
+    */
 
     // Advance turn
     private static void nextTurn(LinkedDeque<LList<Card>> order) {
