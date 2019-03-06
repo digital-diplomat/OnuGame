@@ -45,10 +45,10 @@ public class OnuGame {
             player2.add(deck.remove(0));
             player3.add(deck.remove(0));
         }
-        // Deal first card.
+        // Deal first card into play.
         currentCard = deck.remove(0);
 
-        // TODO: Implement game loop.
+        // Main game loop
         while (true) {
             if (currentCard.isDrawTwo()) {
                 if (deck.size() < 2) {
@@ -57,7 +57,7 @@ public class OnuGame {
                     }
                     deck = shuffleFrom(discard);
                 }
-                // TODO: Have player draw cards.
+                drawCards(2, deck, playerOrder.getFirst());
             }
             if (currentCard.isDrawFour()) {
                 if (deck.size() < 4) {
@@ -66,7 +66,7 @@ public class OnuGame {
                     }
                     deck = shuffleFrom(discard);
                 }
-                // TODO: Have player draw FOUR cards.
+                drawCards(4, deck, playerOrder.getFirst());
             }
             if (currentCard.isSkip() || currentCard.isDrawTwo() || currentCard.isDrawFour()) {
                 nextTurn(playerOrder);
@@ -83,14 +83,12 @@ public class OnuGame {
 
 // ======== Helper Functions Below ========
 
-    /**
+    /*
      * Pulls random cards from the old deck until the old deck runs out,
      * returning a deck in which these cards are placed in random order.
      * 
      * Known issue: calling on a deck without returning to a new deck deletes
      * the deck permanently.
-     * @param fromDeck deck to pull from
-     * @return deck with items shuffled.
      */
     private static AList<Card> shuffleFrom(AList<Card> fromDeck) {
         //our new deck and random Object
@@ -103,10 +101,8 @@ public class OnuGame {
         return newDeck;
     }
 
-    /**
-     * Generates new deck in color/value order; will need to be shuffled.
-     * @return new ordered deck (List) of cards.
-     */
+    
+    // Generates new deck in color/value order; will need to be shuffled.
     private static AList<Card> newDeck() {
         int[] values = {0, 1, 1, 2, 2, 3, 3, 4, 4,
                         5, 5, 6, 6, 7, 7, 8, 8, 9, 9,
@@ -133,7 +129,7 @@ public class OnuGame {
     }
 
     // DEBUG: Do not use.
-    private static void testLoop(AList<Card> deck) {
+    private static void testLoop(List<Card> deck) {
         for (Card c : deck) {
             System.out.print(c.color);
             System.out.print(" / ");
@@ -142,11 +138,15 @@ public class OnuGame {
          }
     }
 
+    // Advance turn
     private static void nextTurn(LinkedDeque<LList<Card>> order) {
         order.addLast(order.removeLast());
     }
 
-    private static void drawCards(int cardCount, AList<Card> deck) {
-        // TODO: Implement
+    // Draw x number of cards from `from` to a given `to` hand.
+    private static void drawCards(int cardCount, List<Card> from, List<Card> to) {
+        for (int i = 0; i < cardCount; i++) {
+            to.add(from.remove(0));
+        }
     }
 }
