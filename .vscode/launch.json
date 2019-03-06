@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - OnuGame",
+            "request": "launch",
+            "mainClass": "OnuGame",
+            "projectName": "OnuGame_7cf813e"
+        }
+    ]
+}

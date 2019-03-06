@@ -78,4 +78,44 @@ public class Card {
     public boolean isDrawFour() {
         return (color == WILD && value == DRAW);
     }
+
+    @Override
+    public String toString() {
+        String colString = "";
+        String valString = "";
+        switch (this.color) {
+            case Card.RED:
+                colString = "Red";
+                break;
+            case Card.YELLOW:
+                colString = "Yellow";
+                break;
+            case Card.GREEN:
+                colString = "Green";
+                break;
+            case Card.BLUE:
+                colString = "Blue";
+                break;
+            case Card.WILD:
+                colString = "Wild";
+        }
+        switch (this.value) {
+            case Card.DRAW:
+                if (this.isWild()) {
+                    valString = "Draw 4";
+                } else {
+                    valString = "Draw 2";
+                }
+                break;
+            case Card.SKIP:
+                valString = "Skip";
+                break;
+            case Card.REVERSE:
+                valString = "Reverse";
+                break;
+            default:
+                valString = ((Integer) this.value).toString();
+        }
+        return colString + " " + valString;
+    }
 }
