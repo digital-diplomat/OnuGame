@@ -145,7 +145,10 @@ public class OnuGame {
     private static void nextTurn(LinkedDeque<LList<Card>> order) {
         order.addLast(order.removeLast());
     }
-
+    /**
+     * Given an amount of cards to draw and a deck, draw that amount and place them
+     * in the current players hand.
+     */
     private static void drawCards(int cardCount, AList<Card> deck) {
         // TODO: Implement
     }
