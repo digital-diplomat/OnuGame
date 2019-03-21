@@ -53,6 +53,7 @@ public class AList<T> implements List<T> {
     @Override
     public T get(int index) {
         if (index >= 0 && index < size)
+            @SuppressWarnings("unchecked")
             return (T)array[index];
         else
             return null;
