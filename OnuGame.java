@@ -19,13 +19,13 @@ public class OnuGame {
         Card currentCard;   // Card that was played last.
         AList<Card> deck = new AList<>(108);
         AList<Card> discard = new AList<>(108);
-
+        //Our players and their decks
         LList<Card> player1 = new LList<>();
         LList<Card> player2 = new LList<>();
         LList<Card> player3 = new LList<>();
 
         LinkedDeque<LList<Card>> playerOrder = new LinkedDeque<LList<Card>>();
-
+        //add our players to the play order 
         playerOrder.addLast(player1);
         playerOrder.addLast(player2);
         playerOrder.addLast(player3);
@@ -73,12 +73,20 @@ public class OnuGame {
             }
             if (currentCard.isReverse()) {
                 // TODO: Reverse player order.
+                /*
+
+                */
             }
 
             // TODO: Have current player put a card onto the stack, or draw a
             // card if unable to do so.
+            /*
+                Display current player's hand and let them choose a card to play,
+                play that card
+                startagain
+             */
+        
         }
-
     }
 
 // ======== Helper Functions Below ========
