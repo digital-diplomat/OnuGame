@@ -86,6 +86,9 @@ public class OnuGame {
                 play that card
                 startagain
              */
+            Iterator playerIt;
+
+
         break;  // TODO: Apply win condition.
         }
         pInput.close();
@@ -93,12 +96,14 @@ public class OnuGame {
 
 // ======== Helper Functions Below ========
 
-    /*
+    /**
      * Pulls random cards from the old deck until the old deck runs out,
      * returning a deck in which these cards are placed in random order.
      * 
      * Known issue: calling on a deck without returning to a new deck deletes
      * the deck permanently.
+     * 
+     * @param fromDeck
      */
     private static AList<Card> shuffleFrom(AList<Card> fromDeck) {
         //our new deck and random Object
@@ -112,7 +117,10 @@ public class OnuGame {
     }
 
     
-    // Generates new deck in color/value order; will need to be shuffled.
+    /**
+     *Generates new deck in color/value order; will need to be shuffled.
+     * @return new Deck of 108 cards with each type necessary for game function
+     */
     private static AList<Card> newDeck() {
         int[] values = {0, 1, 1, 2, 2, 3, 3, 4, 4,
                         5, 5, 6, 6, 7, 7, 8, 8, 9, 9,
@@ -149,7 +157,12 @@ public class OnuGame {
     }
     */
 
-    // Draw x number of cards from `from` to a given `to` hand.
+    /**
+     * Draw x number of cards from `from` to a given `to` hand.
+     * @param cardCount
+     * @param from
+     * @param to
+     */
     private static void drawCards(int cardCount, List<Card> from, List<Card> to) {
         for (int i = 0; i < cardCount; i++) {
             to.add(from.remove(0));
