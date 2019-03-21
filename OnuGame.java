@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 
+import com.sun.java.util.jar.pack.ConstantPool.Index;
+
 /**
  * OnuGame: An UNO clone for the command line.
  * @author Vaughn Coates
@@ -86,7 +88,20 @@ public class OnuGame {
                 play that card
                 startagain
              */
-            Iterator playerIt;
+            Iterator playerIt = playerOrder.get(playerIndex).iterator();
+            int i = 0;
+            while(playerIt.hasNext()){
+                //display a menu of possible choices for the player 
+                System.out.println(i + ". " + playerIt.next().toString());
+            }
+            //get players choice.
+            int choice = pInput.nextInt();
+            try{
+                currentCard = playerOrder.get(playerIndex).get(choice);
+
+            } catch(IndexOutOfBoundsException ex){
+                System.out.println("Invalid choice!");
+            }
 
 
         break;  // TODO: Apply win condition.
@@ -116,7 +131,17 @@ public class OnuGame {
         return newDeck;
     }
 
-    
+    /**
+     * Gets the current player's hand
+     * @param players
+     * @param playerIndex
+     * @return current player's hand
+     * 
+     */
+    private LList<Card> getCurrentPlayer(AList players, int playerIndex){
+        //TODO confirm functionality of this getter? It'd be helpful and cut down on verbosity.
+        return (LList)players.get(playerIndex);
+    }
     /**
      *Generates new deck in color/value order; will need to be shuffled.
      * @return new Deck of 108 cards with each type necessary for game function
