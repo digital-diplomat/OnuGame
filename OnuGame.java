@@ -96,8 +96,12 @@ public class OnuGame {
             }
             //get players choice.
             int choice = pInput.nextInt();
+            //TODO: implement a trap for invalid choices? Let's not have people break out stuff.
             try{
+                //set new current card
                 currentCard = playerOrder.get(playerIndex).get(choice);
+                //remove card from player's deck, add it to discard deck
+                discard.add(playerOrder.get(playerIndex).remove(choice));
 
             } catch(IndexOutOfBoundsException ex){
                 System.out.println("Invalid choice!");
