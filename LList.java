@@ -65,6 +65,7 @@ public class LList<T> implements List<T> {
 
     @Override
     public boolean remove(T o) {
+        verifyIntegrity();
         if (size == 0) {
             return false;
         }
@@ -79,6 +80,7 @@ public class LList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
+        verifyIntegrity();
         Node toRemove = getNodeAt(index);
         T element = toRemove.getElement();
         link(toRemove.getPrevious(), toRemove.getNext());
@@ -143,6 +145,7 @@ public class LList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
+        verifyIntegrity();
         return new Iterator<T>() {
             private int cursor = 0;
             
@@ -166,6 +169,7 @@ public class LList<T> implements List<T> {
      * @param next
      */
     protected void link(Node previous, Node next) {
+        verifyIntegrity();
         if (previous != null) {
             previous.setNext(next);
         }
@@ -181,6 +185,7 @@ public class LList<T> implements List<T> {
      * @param newNode
      */
     protected void insertAfter(Node previous, Node newNode) {
+        verifyIntegrity();
         Node next = previous.getNext();
         link(previous, newNode);
         link(newNode, next);
@@ -193,6 +198,7 @@ public class LList<T> implements List<T> {
      * @param next
      */
     protected void insertBefore(Node newNode, Node next) {
+        verifyIntegrity();
         Node previous = next.getPrevious();
         link(previous, newNode);
         link(newNode, next);
