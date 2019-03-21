@@ -28,9 +28,9 @@ public class OnuGame {
         int turnMod = 1;        // Player order modifier.
         AList<LList<Card>> playerOrder = new AList<LList<Card>>();
 
-        playerOrder.addLast(player1);
-        playerOrder.addLast(player2);
-        playerOrder.addLast(player3);
+        playerOrder.add(player1);
+        playerOrder.add(player2);
+        playerOrder.add(player3);
 
         Scanner pInput = new Scanner(System.in);
 
@@ -72,10 +72,10 @@ public class OnuGame {
             }
             if (currentCard.isSkip() || currentCard.isDrawTwo() || currentCard.isDrawFour()) {
                 playerIndex += turnMod;  // Skip to next player.
-                playerIndex %= 3;
+                playerIndex %= playerOrder.size();
             }
             if (currentCard.isReverse()) {
-                turnMod = (turnMod == 1 ? 2 : 1);
+                turnMod = (turnMod == 1 ? (playerOrder.size() - 1) : 1);
             }
 
             // TODO: Have current player put a card onto the stack, or draw a
