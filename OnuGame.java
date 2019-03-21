@@ -86,12 +86,9 @@ public class OnuGame {
                 play that card
                 startagain
              */
-            //an iterator to help us walk through the list
-            Iterator playerIt = playerOrder.get(playerIndex).iterator();
-            int i = 0;
-            System.out.println("Player. Make a selection.")
-
+        break;  // TODO: Apply win condition.
         }
+        pInput.close();
     }
 
 // ======== Helper Functions Below ========
@@ -151,11 +148,6 @@ public class OnuGame {
          }
     }
     */
-
-    // Advance turn
-    private static void nextTurn(LinkedDeque<LList<Card>> order) {
-        order.addLast(order.removeLast());
-    }
 
     // Draw x number of cards from `from` to a given `to` hand.
     private static void drawCards(int cardCount, List<Card> from, List<Card> to) {
