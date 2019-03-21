@@ -24,7 +24,9 @@ public class OnuGame {
         LList<Card> player2 = new LList<>();
         LList<Card> player3 = new LList<>();
 
-        LinkedDeque<LList<Card>> playerOrder = new LinkedDeque<LList<Card>>();
+        int playerIndex = 0;    // Index of current player.
+        int turnMod = 1;        // Player order modifier.
+        AList<LList<Card>> playerOrder = new AList<LList<Card>>();
 
         playerOrder.addLast(player1);
         playerOrder.addLast(player2);
@@ -57,7 +59,7 @@ public class OnuGame {
                     }
                     deck = shuffleFrom(discard);
                 }
-                drawCards(2, deck, playerOrder.getFirst());
+                drawCards(2, deck, playerOrder.get(playerIndex));
             }
             if (currentCard.isDrawFour()) {
                 if (deck.size() < 4) {
@@ -66,13 +68,14 @@ public class OnuGame {
                     }
                     deck = shuffleFrom(discard);
                 }
-                drawCards(4, deck, playerOrder.getFirst());
+                drawCards(4, deck, playerOrder.get(playerIndex));
             }
             if (currentCard.isSkip() || currentCard.isDrawTwo() || currentCard.isDrawFour()) {
-                nextTurn(playerOrder);
+                playerIndex += turnMod;  // Skip to next player.
+                playerIndex %= 3;
             }
             if (currentCard.isReverse()) {
-                // TODO: Reverse player order.
+                turnMod = (turnMod == 1 ? 2 : 1);
             }
 
             // TODO: Have current player put a card onto the stack, or draw a
