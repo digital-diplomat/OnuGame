@@ -24,11 +24,21 @@ public class OnuGame {
         LList<Card> player2 = new LList<>();
         LList<Card> player3 = new LList<>();
 
+<<<<<<< HEAD
         LinkedDeque<LList<Card>> playerOrder = new LinkedDeque<LList<Card>>();
         //add our players to the play order 
         playerOrder.addLast(player1);
         playerOrder.addLast(player2);
         playerOrder.addLast(player3);
+=======
+        int playerIndex = 0;    // Index of current player.
+        int turnMod = 1;        // Player order modifier.
+        AList<LList<Card>> playerOrder = new AList<LList<Card>>();
+
+        playerOrder.add(player1);
+        playerOrder.add(player2);
+        playerOrder.add(player3);
+>>>>>>> ad2dbb640ebf2b982ad0be8e6c2758b773b62df4
 
         Scanner pInput = new Scanner(System.in);
 
@@ -57,7 +67,7 @@ public class OnuGame {
                     }
                     deck = shuffleFrom(discard);
                 }
-                drawCards(2, deck, playerOrder.getFirst());
+                drawCards(2, deck, playerOrder.get(playerIndex));
             }
             if (currentCard.isDrawFour()) {
                 if (deck.size() < 4) {
@@ -66,16 +76,21 @@ public class OnuGame {
                     }
                     deck = shuffleFrom(discard);
                 }
-                drawCards(4, deck, playerOrder.getFirst());
+                drawCards(4, deck, playerOrder.get(playerIndex));
             }
             if (currentCard.isSkip() || currentCard.isDrawTwo() || currentCard.isDrawFour()) {
-                nextTurn(playerOrder);
+                playerIndex += turnMod;  // Skip to next player.
+                playerIndex %= playerOrder.size();
             }
             if (currentCard.isReverse()) {
+<<<<<<< HEAD
                 // TODO: Reverse player order.
                 /*
 
                 */
+=======
+                turnMod = (turnMod == 1 ? (playerOrder.size() - 1) : 1);
+>>>>>>> ad2dbb640ebf2b982ad0be8e6c2758b773b62df4
             }
 
             // TODO: Have current player put a card onto the stack, or draw a
