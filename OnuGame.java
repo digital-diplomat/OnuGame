@@ -76,13 +76,8 @@ public class OnuGame {
                 playerIndex %= playerOrder.size();
             }
             if (currentCard.isReverse()) {
-<<<<<<< HEAD
-                // TODO: Reverse player order.
-            }3
-=======
                 turnMod = (turnMod == 1 ? (playerOrder.size() - 1) : 1);
             }
->>>>>>> master
 
             // TODO: Have current player put a card onto the stack, or draw a
             // card if unable to do so.
