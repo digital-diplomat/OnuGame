@@ -51,6 +51,7 @@ public class AList<T> implements List<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T get(int index) {
         if (index >= 0 && index < size)
             return (T)array[index];
@@ -59,6 +60,7 @@ public class AList<T> implements List<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T set(int index, T o) {
         T retVal = (T)array[index];    // Save original value to return.
         array[index] = o;
@@ -76,6 +78,7 @@ public class AList<T> implements List<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T remove(int index) {
         if (index >= 0 && index < size) {
             T obj = (T)array[index];
@@ -88,6 +91,7 @@ public class AList<T> implements List<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public int indexOf(T o) {
         T obj;
         for (int i = 0; i < size; i++) {
@@ -100,6 +104,7 @@ public class AList<T> implements List<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public int lastIndexOf(T o) {
         T obj;
         for (int i = size - 1; i >= 0; i--) {
@@ -132,6 +137,7 @@ public class AList<T> implements List<T> {
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             public T next() {
                 T obj = (T)array[cursor];
                 cursor++;

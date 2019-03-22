@@ -1,5 +1,6 @@
 // OnuGame.java: A Command-Line UNOⓇ clone.
 
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -19,16 +20,18 @@ public class OnuGame {
         Card currentCard;   // Card that was played last.
         AList<Card> deck = new AList<>(108);
         AList<Card> discard = new AList<>(108);
-
+        //Our players and their decks
         LList<Card> player1 = new LList<>();
         LList<Card> player2 = new LList<>();
         LList<Card> player3 = new LList<>();
 
-        LinkedDeque<LList<Card>> playerOrder = new LinkedDeque<LList<Card>>();
+        int playerIndex = 0;    // Index of current player.
+        int turnMod = 1;        // Player order modifier.
+        AList<LList<Card>> playerOrder = new AList<LList<Card>>();
 
-        playerOrder.addLast(player1);
-        playerOrder.addLast(player2);
-        playerOrder.addLast(player3);
+        playerOrder.add(player1);
+        playerOrder.add(player2);
+        playerOrder.add(player3);
 
         Scanner pInput = new Scanner(System.in);
 
@@ -57,7 +60,7 @@ public class OnuGame {
                     }
                     deck = shuffleFrom(discard);
                 }
-                drawCards(2, deck, playerOrder.getFirst());
+                drawCards(2, deck, playerOrder.get(playerIndex));
             }
             if (currentCard.isDrawFour()) {
                 if (deck.size() < 4) {
@@ -66,29 +69,63 @@ public class OnuGame {
                     }
                     deck = shuffleFrom(discard);
                 }
-                drawCards(4, deck, playerOrder.getFirst());
+                drawCards(4, deck, playerOrder.get(playerIndex));
             }
             if (currentCard.isSkip() || currentCard.isDrawTwo() || currentCard.isDrawFour()) {
-                nextTurn(playerOrder);
+                playerIndex += turnMod;  // Skip to next player.
+                playerIndex %= playerOrder.size();
             }
             if (currentCard.isReverse()) {
+<<<<<<< HEAD
                 // TODO: Reverse player order.
             }3
+=======
+                turnMod = (turnMod == 1 ? (playerOrder.size() - 1) : 1);
+            }
+>>>>>>> master
 
             // TODO: Have current player put a card onto the stack, or draw a
             // card if unable to do so.
-        }
+            /*
+                Display current player's hand and let them choose a card to play,
+                play that card
+                startagain
+             */
+            Iterator<Card> playerIt = playerOrder.get(playerIndex).iterator();
+            int i = 0;
+            while(playerIt.hasNext()){
+                //display a menu of possible choices for the player 
+                System.out.println(i + ". " + playerIt.next().toString());
+            }
+            //get players choice.
+            int choice = pInput.nextInt();
+            //TODO: implement a trap for invalid choices? Let's not have people break out stuff.
+            try{
+                //set new current card
+                currentCard = playerOrder.get(playerIndex).get(choice);
+                //remove card from player's deck, add it to discard deck
+                discard.add(playerOrder.get(playerIndex).remove(choice));
 
+            } catch(IndexOutOfBoundsException ex){
+                System.out.println("Invalid choice!");
+            }
+
+
+        break;  // TODO: Apply win condition.
+        }
+        pInput.close();
     }
 
 // ======== Helper Functions Below ========
 
-    /*
+    /**
      * Pulls random cards from the old deck until the old deck runs out,
      * returning a deck in which these cards are placed in random order.
      * 
      * Known issue: calling on a deck without returning to a new deck deletes
      * the deck permanently.
+     * 
+     * @param fromDeck
      */
     private static AList<Card> shuffleFrom(AList<Card> fromDeck) {
         //our new deck and random Object
@@ -101,8 +138,21 @@ public class OnuGame {
         return newDeck;
     }
 
-    
-    // Generates new deck in color/value order; will need to be shuffled.
+    /**
+     * Gets the current player's hand
+     * @param players
+     * @param playerIndex
+     * @return current player's hand
+     * 
+     */
+    private LList<Card> getCurrentPlayer(AList<LList<Card>> players, int playerIndex){
+        //TODO confirm functionality of this getter? It'd be helpful and cut down on verbosity.
+        return (LList<Card>)players.get(playerIndex);
+    }
+    /**
+     *Generates new deck in color/value order; will need to be shuffled.
+     * @return new Deck of 108 cards with each type necessary for game function
+     */
     private static AList<Card> newDeck() {
         int[] values = {0, 1, 1, 2, 2, 3, 3, 4, 4,
                         5, 5, 6, 6, 7, 7, 8, 8, 9, 9,
@@ -139,12 +189,12 @@ public class OnuGame {
     }
     */
 
-    // Advance turn
-    private static void nextTurn(LinkedDeque<LList<Card>> order) {
-        order.addLast(order.removeLast());
-    }
-
-    // Draw x number of cards from `from` to a given `to` hand.
+    /**
+     * Draw x number of cards from `from` to a given `to` hand.
+     * @param cardCount
+     * @param from
+     * @param to
+     */
     private static void drawCards(int cardCount, List<Card> from, List<Card> to) {
         for (int i = 0; i < cardCount; i++) {
             to.add(from.remove(0));
