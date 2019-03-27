@@ -2,7 +2,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class LList<T> implements List<T> {
-    
+
     protected int size;
     protected Node first;
     protected Node last;
@@ -24,7 +24,7 @@ public class LList<T> implements List<T> {
     public boolean add(int index, T o) {
         if (index >= size) {
             return add(o);
-        } 
+        }
         Node n = new Node(o);
         if (index == 0) {
             link(n, first);
@@ -148,7 +148,7 @@ public class LList<T> implements List<T> {
         verifyIntegrity();
         return new Iterator<T>() {
             private int cursor = 0;
-            
+
             @Override
             public boolean hasNext() {
                 return cursor < size;

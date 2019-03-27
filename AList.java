@@ -6,16 +6,16 @@ public class AList<T> implements List<T> {
     private int size = 0;
     private final static int DEFAULT_CAPACITY=25;
     private final static int MAX_CAPACITY=10000;
-    
+
     public AList(){
         this(DEFAULT_CAPACITY);
     }
-    
+
     public AList(int capacity) {
         array = new Object[capacity];
         size = 0;
     }
-    
+
     @Override
     public boolean add(T o) {
         if (size < array.length || resizeArray(2 * size)) {
@@ -130,7 +130,7 @@ public class AList<T> implements List<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             private int cursor = 0;
-            
+
             @Override
             public boolean hasNext() {
                 return cursor < size;
@@ -150,12 +150,12 @@ public class AList<T> implements List<T> {
     public Object[] toArray() {
         return Arrays.copyOf(array, size);
     }
-    
+
     private boolean resizeArray(int newCapacity) {
         if (newCapacity > MAX_CAPACITY)
                 return false;
         array = Arrays.copyOf(array, newCapacity);
         return true;
     }
-    
+
 }

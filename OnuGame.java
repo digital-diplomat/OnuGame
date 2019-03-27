@@ -19,7 +19,6 @@ public class OnuGame {
     private static LList<Card> player2 = new LList<>();
     private static LList<Card> player3 = new LList<>();
 
-
     private static int playerIndex = 0;    // Index of current player.
     private static int turnMod = 1;        // Player order modifier.
     private static AList<LList<Card>> playerOrder = new AList<LList<Card>>(); //our list of players
