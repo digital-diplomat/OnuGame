@@ -53,6 +53,8 @@ public class OnuGame {
 
         // Main game loop
         while (true) {
+
+            // Pre-Turn Conditions
             if (currentCard.isDrawTwo()) {
                 if (deck.size() < 2) {
                     for (int i = deck.size(); i >= 0; i--) {
@@ -89,7 +91,7 @@ public class OnuGame {
             Iterator<Card> playerIt = playerOrder.get(playerIndex).iterator();
             int i = 0;
             while(playerIt.hasNext()){
-                //display a menu of possible choices for the player 
+                //display a menu of possible choices for the player
                 System.out.println(i + ". " + playerIt.next().toString());
             }
             //get players choice.
@@ -116,17 +118,17 @@ public class OnuGame {
     /**
      * Pulls random cards from the old deck until the old deck runs out,
      * returning a deck in which these cards are placed in random order.
-     * 
+     *
      * Known issue: calling on a deck without returning to a new deck deletes
      * the deck permanently.
-     * 
+     *
      * @param fromDeck
      */
     private static AList<Card> shuffleFrom(AList<Card> fromDeck) {
         //our new deck and random Object
         AList<Card> newDeck = new AList<>();
         Random rand = new Random();
-        
+
         for(int maxIndex = fromDeck.size(); maxIndex > 0; maxIndex--){
             newDeck.add(fromDeck.remove(Math.abs(rand.nextInt()) % maxIndex));
         }
@@ -138,7 +140,7 @@ public class OnuGame {
      * @param players
      * @param playerIndex
      * @return current player's hand
-     * 
+     *
      */
     private LList<Card> getCurrentPlayer(AList<LList<Card>> players, int playerIndex){
         //TODO confirm functionality of this getter? It'd be helpful and cut down on verbosity.
