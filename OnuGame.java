@@ -93,12 +93,9 @@ public class OnuGame {
                 play that card
                 startagain
              */
-            Iterator<Card> playerIt = playerOrder.get(playerIndex).iterator();
-            int i = 0;
-            while(playerIt.hasNext()){
+            for (int i = 0; i < getCurrentPlayer().size(); i++){
                 //display a menu of possible choices for the player
-                System.out.println(i + ". " + playerIt.next().toString());
-                i++;
+                System.out.println(i + ". " + getCurrentPlayer().get(i).toString());
             }
             //get players choice.
 
