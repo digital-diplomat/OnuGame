@@ -114,7 +114,7 @@ public class OnuGame {
                 } catch(Exception e){
                     System.out.println("Invalid choice!");
                 }
-            }while(choice < 0 || choice > i);
+            } while(choice < 0 || choice > i);
 
             if (getCurrentPlayer().size() == 1) {
                 System.out.println("You have one card remaining!");
