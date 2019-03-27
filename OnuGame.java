@@ -111,10 +111,10 @@ public class OnuGame {
                     System.out.println("Invalid choice!");
                 }
             }while(choice < 0 || choice > i);
-            if (getCurrentPlayer().getSize() == 1) {
+            if (getCurrentPlayer().size() == 1) {
                 System.out.println("You have one card remaining!");
             }
-            if (getCurrentPlayer().getSize() < 1) {
+            if (getCurrentPlayer().size() < 1) {
                 System.out.println("You win! Tell your friends!");
             }
 
