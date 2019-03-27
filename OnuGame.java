@@ -106,9 +106,9 @@ public class OnuGame {
             do{
                 try{
                     //set new current card
-                    currentCard = playerOrder.get(playerIndex).get(choice);
+                    currentCard = getCurrentPlayer().get(choice);
                     //remove card from player's deck, add it to discard deck
-                    discard.add(playerOrder.get(playerIndex).remove(choice));
+                    discard.add(getCurrentPlayer().remove(choice));
 
                 } catch(IndexOutOfBoundsException ex){
                     System.out.println("Invalid choice!");
