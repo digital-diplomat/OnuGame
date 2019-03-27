@@ -12,12 +12,18 @@ import java.util.Scanner;
 public class OnuGame {
 
     private static Card currentCard;   // Card that was played last.
-    private static AList<Card> deck = new AList<>(108);
-    private static AList<Card> discard = new AList<>(108);
+    private static AList<Card> deck = new AList<>(108); //our working deck
+    private static AList<Card> discard = new AList<>(108); //deck of already played cards
     //Our players and their decks
     private static LList<Card> player1 = new LList<>();
     private static LList<Card> player2 = new LList<>();
     private static LList<Card> player3 = new LList<>();
+
+
+    private static int playerIndex = 0;    // Index of current player.
+    private static int turnMod = 1;        // Player order modifier.
+    private static AList<LList<Card>> playerOrder = new AList<LList<Card>>(); //our list of players
+
 
     private OnuGame() {}    // Private constructor prevents instantiation.
 
@@ -26,9 +32,7 @@ public class OnuGame {
      */
     public static void main(String[] args) {
 
-        int playerIndex = 0;    // Index of current player.
-        int turnMod = 1;        // Player order modifier.
-        AList<LList<Card>> playerOrder = new AList<LList<Card>>();
+
 
         playerOrder.add(player1);
         playerOrder.add(player2);
@@ -147,9 +151,8 @@ public class OnuGame {
      * @return current player's hand
      *
      */
-    private LList<Card> getCurrentPlayer(AList<LList<Card>> players, int playerIndex){
-        //TODO confirm functionality of this getter? It'd be helpful and cut down on verbosity.
-        return (LList<Card>)players.get(playerIndex);
+    private LList<Card> getCurrentPlayer(){
+        return (LList<Card>)playerOrder.get(playerIndex);
     }
     /**
      *Generates new deck in color/value order; will need to be shuffled.
