@@ -11,13 +11,13 @@ import java.util.Scanner;
  */
 public class OnuGame {
 
-    private Card currentCard;   // Card that was played last.
-    private AList<Card> deck = new AList<>(108);
-    private AList<Card> discard = new AList<>(108);
+    private static Card currentCard;   // Card that was played last.
+    private static AList<Card> deck = new AList<>(108);
+    private static AList<Card> discard = new AList<>(108);
     //Our players and their decks
-    private LList<Card> player1 = new LList<>();
-    private LList<Card> player2 = new LList<>();
-    private LList<Card> player3 = new LList<>();
+    private static LList<Card> player1 = new LList<>();
+    private static LList<Card> player2 = new LList<>();
+    private static LList<Card> player3 = new LList<>();
 
     private OnuGame() {}    // Private constructor prevents instantiation.
 
@@ -105,7 +105,7 @@ public class OnuGame {
                     currentCard = playerOrder.get(playerIndex).get(choice);
                     //remove card from player's deck, add it to discard deck
                     discard.add(playerOrder.get(playerIndex).remove(choice));
-    
+
                 } catch(IndexOutOfBoundsException ex){
                     System.out.println("Invalid choice!");
                 }
