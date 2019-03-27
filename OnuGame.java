@@ -32,6 +32,8 @@ public class OnuGame {
      */
     public static void main(String[] args) {
 
+        int choice = -1;
+
         playerOrder.add(player1);
         playerOrder.add(player2);
         playerOrder.add(player3);
@@ -99,28 +101,28 @@ public class OnuGame {
                 i++;
             }
             //get players choice.
-            int choice = pInput.nextInt();
+
             //TODO: implement a trap for invalid choices? Let's not have people break out stuff.
             do {
+                choice = pInput.nextInt();
                 try {
                     //set new current card
                     currentCard = getCurrentPlayer().get(choice);
                     //remove card from player's deck, add it to discard deck
                     discard.add(getCurrentPlayer().remove(choice));
+                    break;
                 } catch(Exception e){
                     System.out.println("Invalid choice!");
                 }
             }while(choice < 0 || choice > i);
+
             if (getCurrentPlayer().size() == 1) {
                 System.out.println("You have one card remaining!");
             }
             if (getCurrentPlayer().size() < 1) {
                 System.out.println("You win! Tell your friends!");
+                break;
             }
-
-
-
-        break;  // TODO: Apply win condition.
         }
         pInput.close();
     }
