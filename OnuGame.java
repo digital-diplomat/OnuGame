@@ -67,7 +67,7 @@ public class OnuGame {
                     }
                     deck = shuffleFrom(discard);
                 }
-                drawCards(2, deck, playerOrder.get(playerIndex));
+                drawCards(2, deck, getCurrentPlayer());
             }
             if (currentCard.isDrawFour()) {
                 if (deck.size() < 4) {
@@ -76,7 +76,7 @@ public class OnuGame {
                     }
                     deck = shuffleFrom(discard);
                 }
-                drawCards(4, deck, playerOrder.get(playerIndex));
+                drawCards(4, deck, getCurrentPlayer());
             }
             if (currentCard.isSkip() || currentCard.isDrawTwo() || currentCard.isDrawFour()) {
                 playerIndex += turnMod;  // Skip to next player.
@@ -151,7 +151,7 @@ public class OnuGame {
      * @return current player's hand
      *
      */
-    private LList<Card> getCurrentPlayer(){
+    private static LList<Card> getCurrentPlayer(){
         return (LList<Card>)playerOrder.get(playerIndex);
     }
     /**
