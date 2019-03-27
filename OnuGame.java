@@ -11,19 +11,20 @@ import java.util.Scanner;
  */
 public class OnuGame {
 
+    private Card currentCard;   // Card that was played last.
+    private AList<Card> deck = new AList<>(108);
+    private AList<Card> discard = new AList<>(108);
+    //Our players and their decks
+    private LList<Card> player1 = new LList<>();
+    private LList<Card> player2 = new LList<>();
+    private LList<Card> player3 = new LList<>();
+
     private OnuGame() {}    // Private constructor prevents instantiation.
 
     /**
      * Main program loop.
      */
     public static void main(String[] args) {
-        Card currentCard;   // Card that was played last.
-        AList<Card> deck = new AList<>(108);
-        AList<Card> discard = new AList<>(108);
-        //Our players and their decks
-        LList<Card> player1 = new LList<>();
-        LList<Card> player2 = new LList<>();
-        LList<Card> player3 = new LList<>();
 
         int playerIndex = 0;    // Index of current player.
         int turnMod = 1;        // Player order modifier.
@@ -93,19 +94,23 @@ public class OnuGame {
             while(playerIt.hasNext()){
                 //display a menu of possible choices for the player
                 System.out.println(i + ". " + playerIt.next().toString());
+                i++;
             }
             //get players choice.
             int choice = pInput.nextInt();
             //TODO: implement a trap for invalid choices? Let's not have people break out stuff.
-            try{
-                //set new current card
-                currentCard = playerOrder.get(playerIndex).get(choice);
-                //remove card from player's deck, add it to discard deck
-                discard.add(playerOrder.get(playerIndex).remove(choice));
+            do{
+                try{
+                    //set new current card
+                    currentCard = playerOrder.get(playerIndex).get(choice);
+                    //remove card from player's deck, add it to discard deck
+                    discard.add(playerOrder.get(playerIndex).remove(choice));
+    
+                } catch(IndexOutOfBoundsException ex){
+                    System.out.println("Invalid choice!");
+                }
+            }while(choice < 0 || choice > i);
 
-            } catch(IndexOutOfBoundsException ex){
-                System.out.println("Invalid choice!");
-            }
 
 
         break;  // TODO: Apply win condition.
@@ -174,17 +179,6 @@ public class OnuGame {
         }
         return deck;
     }
-
-    /* DEBUG: Do not use.
-    private static void testLoop(List<Card> deck) {
-        for (Card c : deck) {
-            System.out.print(c.color);
-            System.out.print(" / ");
-            System.out.print(c.value);
-            System.out.println();
-         }
-    }
-    */
 
     /**
      * Draw x number of cards from `from` to a given `to` hand.
