@@ -24,6 +24,8 @@ public class OnuGame {
     private static int turnMod = 1; // Player order modifier.
     private static AList<LList<Card>> playerOrder = new AList<LList<Card>>(); //our list of players
 
+    static int currentColor;
+
     private OnuGame() {
     } // Private constructor prevents instantiation.
 
@@ -60,6 +62,7 @@ public class OnuGame {
         while (true) {
 
             // Pre-Turn Conditions
+            playerIndex += turnMod;
             if (currentCard.isDrawTwo()) {
                 if (deck.size() < 2) {
                     for (int i = deck.size(); i >= 0; i--) {
@@ -95,25 +98,32 @@ public class OnuGame {
                 //display a menu of possible choices for the player
                 System.out.println(i + ". " + getCurrentPlayer().get(i).toString());
             }
-            //get players choice.
+            //get player's choice.
 
-            do {
+            while (true) {
                 choice = pInput.nextInt();
                 try {
-                    //set new current card
-                    currentCard = getCurrentPlayer().get(choice);
-                    //remove card from player's deck, add it to discard deck
-                    discard.add(getCurrentPlayer().remove(choice));
-                    break;
+                    //check if player's selection is valid
+                    if (getCurrentPlayer.get(choice).color == currentColor
+                            || getCurrentPlayer.get(choice).value == currentCard.value
+                            || getCurrentPlayer().get(choice).value == Card.WILD) {
+                        //set new current card
+                        currentCard = getCurrentPlayer().get(choice);
+                        //remove card from player's deck, add it to discard deck
+
+                        discard.add(getCurrentPlayer().remove(choice));
+                        break;
+                    } else {
+                        System.out.println("Card does not match!");
+                    }
                 } catch (Exception e) {
                     System.out.println("Invalid choice!");
                 }
-            } while (choice < 0 || choice > i);
+            }
 
             if (getCurrentPlayer().size() == 1) {
                 System.out.println("You have one card remaining!");
-            }
-            if (getCurrentPlayer().size() < 1) {
+            } else if (getCurrentPlayer().size() < 1) {
                 System.out.println("You win! Tell your friends!");
                 break;
             }
