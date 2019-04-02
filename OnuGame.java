@@ -61,8 +61,9 @@ public class OnuGame {
         // Main game loop
         while (true) {
 
+            System.out.println("Current card is " + currentCard.toString());
             // Pre-Turn Conditions
-            playerIndex += turnMod;
+            playerIndex += (turnMod % playerOrder.size());
             if (currentCard.isDrawTwo()) {
                 if (deck.size() < 2) {
                     for (int i = deck.size(); i >= 0; i--) {
@@ -104,13 +105,24 @@ public class OnuGame {
                 choice = pInput.nextInt();
                 try {
                     //check if player's selection is valid
-                    if (getCurrentPlayer.get(choice).color == currentColor
-                            || getCurrentPlayer.get(choice).value == currentCard.value
+                    if (getCurrentPlayer().get(choice).color == currentColor
+                            || getCurrentPlayer().get(choice).value == currentCard.value
                             || getCurrentPlayer().get(choice).value == Card.WILD) {
+
                         //set new current card
                         currentCard = getCurrentPlayer().get(choice);
-                        //remove card from player's deck, add it to discard deck
 
+                        //change the current color of the game if necessary
+                        if (currentColor != currentCard.color) {
+                            currentColor = currentCard.color;
+                        }
+                        //check if card is wild, if so, make them choose a color
+                        if (currentColor == Card.WILD) {
+                            System.out.print("Red (1), Yellow (2), Green (3) or Blue(4)?\n> ");
+                            currentColor = pInput.nextInt();
+                        }
+
+                        //remove card from player's deck, add it to discard deck
                         discard.add(getCurrentPlayer().remove(choice));
                         break;
                     } else {

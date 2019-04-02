@@ -91,15 +91,15 @@ public class LList<T> implements List<T> {
     @Override
     public int indexOf(T o) {
         if (size == 0) {
-            return -1;  // No nodes to find.
+            return -1; // No nodes to find.
         }
         Node current = this.first;
         int index = 0;
         while (index < size) {
-            if (current.element.equals(o)) {    // If there's a match...
+            if (current.element.equals(o)) { // If there's a match...
                 return index;
             }
-            current = current.getNext();    // Go to next node and repeat.
+            current = current.getNext(); // Go to next node and repeat.
             index++;
         }
         return -1;
@@ -108,15 +108,15 @@ public class LList<T> implements List<T> {
     @Override
     public int lastIndexOf(T o) {
         if (size == 0) {
-            return -1;  // No nodes to find.
+            return -1; // No nodes to find.
         }
         Node current = this.last;
         int index = size - 1;
         while (index >= 0) {
-            if (current.element.equals(o)) {    // If there's a match...
+            if (current.element.equals(o)) { // If there's a match...
                 return index;
             }
-            current = current.getPrevious();    // Go to previous node & repeat.
+            current = current.getPrevious(); // Go to previous node & repeat.
             index--;
         }
         return -1;
@@ -162,6 +162,7 @@ public class LList<T> implements List<T> {
             }
         };
     }
+
     /**
      * Use this method to link two nodes.
      *
@@ -172,9 +173,13 @@ public class LList<T> implements List<T> {
         verifyIntegrity();
         if (previous != null) {
             previous.setNext(next);
+        } else {
+            first = next;
         }
         if (next != null) {
             next.setPrevious(previous);
+        } else {
+            last = previous;
         }
     }
 
