@@ -1,3 +1,4 @@
+
 // OnuGame.java: A Command-Line UNOⓇ clone.
 
 import java.util.Iterator;
@@ -11,7 +12,7 @@ import java.util.Scanner;
  */
 public class OnuGame {
 
-    private static Card currentCard;   // Card that was played last.
+    private static Card currentCard; // Card that was played last.
     private static AList<Card> deck = new AList<>(108); //our working deck
     private static AList<Card> discard = new AList<>(108); //deck of already played cards
     //Our players and their decks
@@ -19,12 +20,12 @@ public class OnuGame {
     private static LList<Card> player2 = new LList<>();
     private static LList<Card> player3 = new LList<>();
 
-    private static int playerIndex = 0;    // Index of current player.
-    private static int turnMod = 1;        // Player order modifier.
+    private static int playerIndex = 0; // Index of current player.
+    private static int turnMod = 1; // Player order modifier.
     private static AList<LList<Card>> playerOrder = new AList<LList<Card>>(); //our list of players
 
-
-    private OnuGame() {}    // Private constructor prevents instantiation.
+    private OnuGame() {
+    } // Private constructor prevents instantiation.
 
     /**
      * Main program loop.
@@ -41,10 +42,10 @@ public class OnuGame {
 
         // Create new deck and shuffle it.
         discard = newDeck();
-//      testLoop(deck)
-//      System.out.println("Shuffling...");
+        //      testLoop(deck)
+        //      System.out.println("Shuffling...");
         deck = shuffleFrom(discard);
-//      testLoop(deck)
+        //      testLoop(deck)
 
         // Deal out cards
         for (int i = 0; i < 7; i++) {
@@ -78,7 +79,7 @@ public class OnuGame {
                 drawCards(4, deck, getCurrentPlayer());
             }
             if (currentCard.isSkip() || currentCard.isDrawTwo() || currentCard.isDrawFour()) {
-                playerIndex += turnMod;  // Skip to next player.
+                playerIndex += turnMod; // Skip to next player.
                 playerIndex %= playerOrder.size();
             }
             if (currentCard.isReverse()) {
@@ -92,7 +93,7 @@ public class OnuGame {
                 play that card
                 startagain
              */
-            for (int i = 0; i < getCurrentPlayer().size(); i++){
+            for (int i = 0; i < getCurrentPlayer().size(); i++) {
                 //display a menu of possible choices for the player
                 System.out.println(i + ". " + getCurrentPlayer().get(i).toString());
             }
@@ -107,10 +108,10 @@ public class OnuGame {
                     //remove card from player's deck, add it to discard deck
                     discard.add(getCurrentPlayer().remove(choice));
                     break;
-                } catch(Exception e){
+                } catch (Exception e) {
                     System.out.println("Invalid choice!");
                 }
-            } while(choice < 0 || choice > i);
+            } while (choice < 0 || choice > i);
 
             if (getCurrentPlayer().size() == 1) {
                 System.out.println("You have one card remaining!");
@@ -123,7 +124,7 @@ public class OnuGame {
         pInput.close();
     }
 
-// ======== Helper Functions Below ========
+    // ======== Helper Functions Below ========
 
     /**
      * Pulls random cards from the old deck until the old deck runs out,
@@ -139,7 +140,7 @@ public class OnuGame {
         AList<Card> newDeck = new AList<>();
         Random rand = new Random();
 
-        for(int maxIndex = fromDeck.size(); maxIndex > 0; maxIndex--){
+        for (int maxIndex = fromDeck.size(); maxIndex > 0; maxIndex--) {
             newDeck.add(fromDeck.remove(Math.abs(rand.nextInt()) % maxIndex));
         }
         return newDeck;
@@ -152,20 +153,19 @@ public class OnuGame {
      * @return current player's hand
      *
      */
-    private static LList<Card> getCurrentPlayer(){
-        return (LList<Card>)playerOrder.get(playerIndex);
+    private static LList<Card> getCurrentPlayer() {
+        return (LList<Card>) playerOrder.get(playerIndex);
     }
+
     /**
      *Generates new deck in color/value order; will need to be shuffled.
      * @return new Deck of 108 cards with each type necessary for game function
      */
     private static AList<Card> newDeck() {
-        int[] values = {0, 1, 1, 2, 2, 3, 3, 4, 4,
-                        5, 5, 6, 6, 7, 7, 8, 8, 9, 9,
-                        Card.SKIP, Card.SKIP, Card.REVERSE, Card.REVERSE,
-                        Card.DRAW, Card.DRAW};
+        int[] values = { 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, Card.SKIP, Card.SKIP, Card.REVERSE,
+                Card.REVERSE, Card.DRAW, Card.DRAW };
 
-        int[] colors = {Card.RED, Card.YELLOW, Card.GREEN, Card.BLUE};
+        int[] colors = { Card.RED, Card.YELLOW, Card.GREEN, Card.BLUE };
 
         AList<Card> deck = new AList<>();
 
