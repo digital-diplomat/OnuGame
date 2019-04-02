@@ -86,8 +86,6 @@ public class OnuGame {
                 turnMod = (turnMod == 1 ? (playerOrder.size() - 1) : 1);
             }
 
-            // TODO: Have current player put a card onto the stack, or draw a
-            // card if unable to do so.
             /*
                 Display current player's hand and let them choose a card to play,
                 play that card
@@ -99,7 +97,6 @@ public class OnuGame {
             }
             //get players choice.
 
-            //TODO: implement a trap for invalid choices? Let's not have people break out stuff.
             do {
                 choice = pInput.nextInt();
                 try {
