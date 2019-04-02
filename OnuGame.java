@@ -92,13 +92,14 @@ public class OnuGame {
                 play that card
                 startagain
              */
-            for (int i = 0; i < getCurrentPlayer().size(); i++){
+            int i;
+            for (i = 0; i < getCurrentPlayer().size(); i++){
                 //display a menu of possible choices for the player
                 System.out.println(i + ". " + getCurrentPlayer().get(i).toString());
             }
             //get players choice.
 
-            //TODO: implement a trap for invalid choices? Let's not have people break out stuff.
+        
             do {
                 choice = pInput.nextInt();
                 try {
