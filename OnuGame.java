@@ -136,7 +136,7 @@ public class OnuGame {
                         discard.add(getCurrentPlayer().remove(choice));
                         break;
                     } else {
-                        System.out.println("Card does not match!\n> ");
+                        System.out.print("Card does not match!\n> ");
                     }
                 } catch (NoSuchElementException e) {
                     System.out.print("Invalid choice!\n> ");
