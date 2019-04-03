@@ -95,6 +95,7 @@ public class OnuGame {
                 play that card
                 startagain
              */
+            System.out.println("\nPlayer " + playerIndex + ", your turn.");
             for (int i = 0; i < getCurrentPlayer().size(); i++) {
                 //display a menu of possible choices for the player
                 System.out.println(i + ". " + getCurrentPlayer().get(i).toString());
