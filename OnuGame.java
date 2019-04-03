@@ -35,14 +35,20 @@ public class OnuGame {
      * Main program loop.
      */
     public static void main(String[] args) {
-        //player's choice
+
+        Scanner pInput = new Scanner(System.in); // Player input scanner.
+
+        // Player's card choice
         int choice = -1;
-        //add our players
+
+        //A menu interface here
+        System.out.println("Welcome to ONU. Press Enter to begin.");
+        pInput.nextLine();
+
+        // Add our players
         playerOrder.add(player1);
         playerOrder.add(player2);
         playerOrder.add(player3);
-
-        Scanner pInput = new Scanner(System.in);
 
         // Create new deck and shuffle it.
         discard = newDeck();
@@ -57,13 +63,13 @@ public class OnuGame {
             player2.add(deck.remove(0));
             player3.add(deck.remove(0));
         }
-        // Deal first card into play.
+        // Deal first card into play
         currentCard = deck.remove(0);
         currentColor = currentCard.color;
 
         // Main game loop
         while (true) {
-            // Display current card.
+            // Display current card
             System.out.println("\nCurrent card is " + currentCard.toString());
 
             // Pre-Turn Conditions
@@ -83,6 +89,24 @@ public class OnuGame {
                 System.out.println("Player " + (playerIndex + 1) + "'s turn ends.");
                 playerIndex += turnMod; // Skip to next player.
                 playerIndex %= playerOrder.size();
+            }
+
+            if (currentCard.isWild()) {
+                System.out.print("Last player chose ");
+                switch (currentColor) {
+                case Card.RED:
+                    System.out.println("RED.");
+                    break;
+                case Card.YELLOW:
+                    System.out.println("YELLOW.");
+                    break;
+                case Card.GREEN:
+                    System.out.println("GREEN.");
+                    break;
+                case Card.BLUE:
+                    System.out.println("BLUE.");
+                    break;
+                }
             }
 
             /*
