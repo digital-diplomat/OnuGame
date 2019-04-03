@@ -61,9 +61,8 @@ public class OnuGame {
         // Main game loop
         while (true) {
 
-            System.out.println("Current card is " + currentCard.toString());
+            System.out.println("\nCurrent card is " + currentCard.toString());
             // Pre-Turn Conditions
-            playerIndex += (turnMod % playerOrder.size());
             if (currentCard.isDrawTwo()) {
                 if (deck.size() < 2) {
                     for (int i = deck.size(); i >= 0; i--) {
@@ -95,7 +94,9 @@ public class OnuGame {
                 play that card
                 startagain
              */
-            System.out.println("\nPlayer " + playerIndex + ", your turn.");
+            System.out.println("\nPlayer " + (playerIndex + 1) + ", your turn.");
+            System.out.println();
+            //System.out.println("DEBUG: playerIndex = " + playerIndex);
             for (int i = 0; i < getCurrentPlayer().size(); i++) {
                 //display a menu of possible choices for the player
                 System.out.println(i + ". " + getCurrentPlayer().get(i).toString());
@@ -140,6 +141,8 @@ public class OnuGame {
                 System.out.println("You win! Tell your friends!");
                 break;
             }
+            playerIndex += turnMod;
+            playerIndex %= playerOrder.size();
         }
         pInput.close();
     }
