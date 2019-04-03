@@ -112,6 +112,7 @@ public class OnuGame {
                             || getCurrentPlayer().get(choice).value == Card.WILD) {
 
                         //set new current card
+                        System.out.print("> ");
                         currentCard = getCurrentPlayer().get(choice);
 
                         //change the current color of the game if necessary
@@ -128,10 +129,10 @@ public class OnuGame {
                         discard.add(getCurrentPlayer().remove(choice));
                         break;
                     } else {
-                        System.out.println("Card does not match!");
+                        System.out.println("Card does not match!\n> ");
                     }
                 } catch (NoSuchElementException e) {
-                    System.out.println("Invalid choice!");
+                    System.out.print("Invalid choice!\n> ");
                 }
             }
 
