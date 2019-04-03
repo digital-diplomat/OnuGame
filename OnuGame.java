@@ -13,16 +13,17 @@ import java.util.NoSuchElementException;
 public class OnuGame {
 
     private static Card currentCard; // Card that was played last.
-    private static AList<Card> deck = new AList<>(108); //our working deck
-    private static AList<Card> discard = new AList<>(108); //deck of already played cards
-    //Our players and their decks
+    private static AList<Card> deck = new AList<>(108); // our working deck
+    private static AList<Card> discard = new AList<>(108); // deck of already played cards
+
+    // Our players and their hands
     private static LList<Card> player1 = new LList<>();
     private static LList<Card> player2 = new LList<>();
     private static LList<Card> player3 = new LList<>();
 
     private static int playerIndex = 0; // Index of current player.
     private static int turnMod = 1; // Player order modifier.
-    private static AList<LList<Card>> playerOrder = new AList<LList<Card>>(); //our list of players
+    private static AList<LList<Card>> playerOrder = new AList<LList<Card>>(); // our list of players
 
     static int currentColor;
 
@@ -44,10 +45,10 @@ public class OnuGame {
 
         // Create new deck and shuffle it.
         discard = newDeck();
-        //      testLoop(deck)
-        //      System.out.println("Shuffling...");
+        //testLoop(deck)
+        //System.out.println("Shuffling...");
         deck = shuffleFrom(discard);
-        //      testLoop(deck)
+        //testLoop(deck)
 
         // Deal out cards
         for (int i = 0; i < 7; i++) {
@@ -58,21 +59,24 @@ public class OnuGame {
         // Deal first card into play.
         currentCard = deck.remove(0);
         currentColor = currentCard.color;
+
         // Main game loop
         while (true) {
-
+            // Display current card.
             System.out.println("\nCurrent card is " + currentCard.toString());
+
             // Pre-Turn Conditions
-            if (currentCard.isDrawTwo()) {
-                if (deck.size() < 2) {
+            if (currentCard.isDrawTwo()) { // Give two cards to current player.
+                if (deck.size() < 2) { // Check if deck has enough cards.
                     for (int i = deck.size(); i >= 0; i--) {
-                        discard.add(deck.remove(0));
+                        discard.add(deck.remove(0)); // If not, shuffle discard into deck.
                     }
                     deck = shuffleFrom(discard);
                 }
                 drawCards(2, deck, getCurrentPlayer());
+                System.out.println("Player " + (playerIndex + 1) + ", draw 2.");
             }
-            if (currentCard.isDrawFour()) {
+            if (currentCard.isDrawFour()) { // Give four cards to current player.
                 if (deck.size() < 4) {
                     for (int i = deck.size(); i >= 0; i--) {
                         discard.add(deck.remove(0));
@@ -80,12 +84,15 @@ public class OnuGame {
                     deck = shuffleFrom(discard);
                 }
                 drawCards(4, deck, getCurrentPlayer());
+                System.out.println("Player " + (playerIndex + 1) + ", draw 4.");
             }
             if (currentCard.isSkip() || currentCard.isDrawTwo() || currentCard.isDrawFour()) {
                 playerIndex += turnMod; // Skip to next player.
                 playerIndex %= playerOrder.size();
+                System.out.println("Player " + (playerIndex + 1) + "'s turn ends'.");
             }
             if (currentCard.isReverse()) {
+                System.out.println("Play reversed!");
                 turnMod = (turnMod == 1 ? (playerOrder.size() - 1) : 1);
             }
 
