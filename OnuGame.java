@@ -68,22 +68,14 @@ public class OnuGame {
 
             // Pre-Turn Conditions
             if (currentCard.isDrawTwo()) { // Give two cards to current player.
-                if (deck.size() < 2) { // Check if deck has enough cards.
-                    for (int i = deck.size(); i >= 0; i--) {
-                        discard.add(deck.remove(0)); // If not, shuffle discard into deck.
-                    }
-                    deck = shuffleFrom(discard);
-                }
+                //check if there are enough cards in the deck, if not refill it
+                refillDeck(2);
                 drawCards(2, deck, getCurrentPlayer());
                 System.out.println("Player " + (playerIndex + 1) + ", draw 2.");
             }
             if (currentCard.isDrawFour()) { // Give four cards to current player.
-                if (deck.size() < 4) {
-                    for (int i = deck.size(); i >= 0; i--) {
-                        discard.add(deck.remove(0));
-                    }
-                    deck = shuffleFrom(discard);
-                }
+                //check deck again
+                refillDeck(4);
                 drawCards(4, deck, getCurrentPlayer());
                 System.out.println("Player " + (playerIndex + 1) + ", draw 4.");
             }
@@ -101,6 +93,7 @@ public class OnuGame {
             System.out.println("\nPlayer " + (playerIndex + 1) + ", your turn.");
             System.out.println();
             //System.out.println("DEBUG: playerIndex = " + playerIndex);
+            System.out.println("-1. [Draw a new card.]");
             for (int i = 0; i < getCurrentPlayer().size(); i++) {
                 //display a menu of possible choices for the player
                 System.out.println(i + ". " + getCurrentPlayer().get(i).toString());
@@ -115,6 +108,14 @@ public class OnuGame {
                     System.out.println("Please input a number.\n> ");
                     pInput.nextLine();
                     continue;
+                }
+                if (choice < 0) {
+                    //player doesn't have a card they need, 
+                    //check that we can draw a card, if not, refill deck
+                    refillDeck(1);
+                    drawCards(1, deck, getCurrentPlayer());
+                    System.out.println("Player " + (playerIndex + 1) + " draws a card.");
+                    break;
                 }
                 try {
                     //check if player's selection is valid
@@ -163,6 +164,24 @@ public class OnuGame {
     }
 
     // ======== Helper Functions Below ========
+
+    /**
+    * Checks number of cards in deck, if deck does not have enough cards,
+    * reshuffle and refill it
+    * @param cards the number of cards to check for
+    */
+    public static void refillDeck(int cards) {
+        // If the deck doesn't have the amount of cards we need...
+        if (deck.size() < cards) {
+            for (int i = deck.size(); i >= 0; i--) {
+                // ...remove the remaining cards to our discard deck
+                discard.add(deck.remove(0));
+            }
+            //reshuffle the deck
+            deck = shuffleFrom(discard);
+            System.out.println("\n(Discard reshuffled into deck.)");
+        }
+    }
 
     /**
      * Pulls random cards from the old deck until the old deck runs out,
