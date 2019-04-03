@@ -1,9 +1,9 @@
 
 // OnuGame.java: A Command-Line UNOⓇ clone.
 
-import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 /**
  * OnuGame: An UNO clone for the command line.
@@ -130,19 +130,19 @@ public class OnuGame {
                     } else {
                         System.out.println("Card does not match!");
                     }
-                } catch (Exception e) {
+                } catch (NoSuchElementException e) {
                     System.out.println("Invalid choice!");
                 }
             }
 
             if (getCurrentPlayer().size() == 1) {
-                System.out.println("You have one card remaining!");
+                System.out.println("You have one card remaining!"); // UNO!
             } else if (getCurrentPlayer().size() < 1) {
-                System.out.println("You win! Tell your friends!");
+                System.out.println("You win! Tell your friends!"); // Win cond.
                 break;
             }
-            playerIndex += turnMod;
-            playerIndex %= playerOrder.size();
+            playerIndex += turnMod; // Next player's turn.
+            playerIndex %= playerOrder.size(); // Prevent overflow.
         }
         pInput.close();
     }
