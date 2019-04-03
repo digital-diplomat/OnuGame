@@ -35,9 +35,9 @@ public class OnuGame {
      * Main program loop.
      */
     public static void main(String[] args) {
-
+        //player's choice
         int choice = -1;
-
+        //add our players
         playerOrder.add(player1);
         playerOrder.add(player2);
         playerOrder.add(player3);
