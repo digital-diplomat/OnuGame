@@ -183,9 +183,9 @@ public class OnuGame {
             }
             playerIndex += turnMod; // Next player's turn.
             playerIndex %= playerOrder.size(); // Prevent overflow.
-        }
+        } //End of main game loop
         pInput.close();
-    }
+    }//End of main
 
     // ======== Helper Functions Below ========
 
