@@ -57,7 +57,7 @@ public class OnuGame {
         }
         // Deal first card into play.
         currentCard = deck.remove(0);
-
+        currentColor = currentCard.color;
         // Main game loop
         while (true) {
 
