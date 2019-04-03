@@ -4,6 +4,7 @@
 import java.util.Random;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
+import java.util.InputMismatchException;
 
 /**
  * OnuGame: An UNO clone for the command line.
@@ -87,13 +88,9 @@ public class OnuGame {
                 System.out.println("Player " + (playerIndex + 1) + ", draw 4.");
             }
             if (currentCard.isSkip() || currentCard.isDrawTwo() || currentCard.isDrawFour()) {
+                System.out.println("Player " + (playerIndex + 1) + "'s turn ends.");
                 playerIndex += turnMod; // Skip to next player.
                 playerIndex %= playerOrder.size();
-                System.out.println("Player " + (playerIndex + 1) + "'s turn ends'.");
-            }
-            if (currentCard.isReverse()) {
-                System.out.println("Play reversed!");
-                turnMod = (turnMod == 1 ? (playerOrder.size() - 1) : 1);
             }
 
             /*
@@ -111,15 +108,21 @@ public class OnuGame {
             //get player's choice.
 
             while (true) {
-                choice = pInput.nextInt();
+                System.out.print("> ");
+                try {
+                    choice = pInput.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Please input a number.\n> ");
+                    pInput.nextLine();
+                    continue;
+                }
                 try {
                     //check if player's selection is valid
                     if (getCurrentPlayer().get(choice).color == currentColor
                             || getCurrentPlayer().get(choice).value == currentCard.value
-                            || getCurrentPlayer().get(choice).value == Card.WILD) {
+                            || getCurrentPlayer().get(choice).color == Card.WILD) {
 
                         //set new current card
-                        System.out.print("> ");
                         currentCard = getCurrentPlayer().get(choice);
 
                         //change the current color of the game if necessary
@@ -130,6 +133,10 @@ public class OnuGame {
                         if (currentColor == Card.WILD) {
                             System.out.print("Red (1), Yellow (2), Green (3) or Blue(4)?\n> ");
                             currentColor = pInput.nextInt();
+                        }
+                        if (currentCard.isReverse()) {
+                            System.out.println("Play reversed!");
+                            turnMod = (turnMod == 1 ? (playerOrder.size() - 1) : 1);
                         }
 
                         //remove card from player's deck, add it to discard deck
