@@ -1,0 +1,13 @@
+                        _______________________
+                       |   ____  _   _ _    _  |
+                       |  / __ \| \ | | |  | | |
+                       | | |  | |  \| | |  | | |
+                       | | |  | | . ` | |  | | |
+                       | | |__| | |\  | |__| | |
+                       |  \____/|_| \_|\____/  |
+                        -----------------------
+
+      A Text Clone of the Popular Card Game We Legally Can't Mention
+                  by Vaughn Coates and Brennon Miller
+                  
+                         Press Enter to start.
