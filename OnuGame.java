@@ -1,8 +1,12 @@
 
 // OnuGame.java: A Command-Line UNOⓇ clone.
 
+import java.io.File;
+import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
 import java.util.InputMismatchException;
 
@@ -27,22 +31,30 @@ public class OnuGame {
     private static AList<LList<Card>> playerOrder = new AList<LList<Card>>(); // our list of players
 
     static int currentColor;
-
+    static Scanner pInput = new Scanner(System.in); // Player input scanner.
     private OnuGame() {
     } // Private constructor prevents instantiation.
 
     /**
-     * Main program loop.
+     * Main program.
      */
     public static void main(String[] args) {
-
-        Scanner pInput = new Scanner(System.in); // Player input scanner.
+        try {
+            File intro = new File("title.txt");
+            Scanner introWriter = new Scanner(intro);
+            while (introWriter.hasNextLine()) {
+                System.out.println(introWriter.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("The title screen file is missing. " 
+                    + "Here's something generic instead.\n");
+            System.out.println("Welcome to ONU. Press Enter to begin.");
+        }
 
         // Player's card choice
         int choice = -1;
 
         //A menu interface here
-        System.out.println("Welcome to ONU. Press Enter to begin.");
         pInput.nextLine();
 
         // Add our players
@@ -74,13 +86,13 @@ public class OnuGame {
 
             // Pre-Turn Conditions
             if (currentCard.isDrawTwo()) { // Give two cards to current player.
-                //check if there are enough cards in the deck, if not refill it
+                // Check if there are enough cards in the deck, if not refill it
                 refillDeck(2);
                 drawCards(2, deck, getCurrentPlayer());
                 System.out.println("Player " + (playerIndex + 1) + ", draw 2.");
             }
             if (currentCard.isDrawFour()) { // Give four cards to current player.
-                //check deck again
+                // Check deck again
                 refillDeck(4);
                 drawCards(4, deck, getCurrentPlayer());
                 System.out.println("Player " + (playerIndex + 1) + ", draw 4.");
@@ -91,7 +103,7 @@ public class OnuGame {
                 playerIndex %= playerOrder.size();
             }
 
-            if (currentCard.isWild()) {
+            if (currentCard.isWild()) { // Wild color selection
                 System.out.print("Last player chose ");
                 switch (currentColor) {
                 case Card.RED:
@@ -114,6 +126,7 @@ public class OnuGame {
                 play that card
                 startagain
              */
+            System.out.println("\n========================\n");
             System.out.println("\nPlayer " + (playerIndex + 1) + ", your turn.");
             System.out.println();
             //System.out.println("DEBUG: playerIndex = " + playerIndex);
@@ -187,9 +200,58 @@ public class OnuGame {
 
         //TODO: Implement saving past and present winners to persistent files!
         //TODO: Find out how to do this without getting an aneurysm 
+
         pInput.close();
     }//End of main
+    /**
+    * When a player wins, lets them enter their name and saves their number of wins to a file
+    */
+    public static void saveWinner(){
+        //so we can read in records
+        final String winFile = "winners.txt";
+        String playerName;
+        int wins = 0;
+        //get winner's name
+        System.out.println("What is your name? ");
+        playerName = pInput.nextLine();
+        System.out.println("Congratulations, " + playerName + "!");
 
+        File file = new File(winFile);
+        try{
+            //open the win file, and look for the winner if they exist
+            //Scanner sc = new Scanner(winFile);
+            PrintWriter writer;
+            // while(sc.hasNextLine()) {
+            //     //find if the winner is already in our records
+            //     if(sc.next().equals(playerName)){
+            //         //we found our winner
+            //         /*TODO: update wins or append a date of victory...or both,
+            //         * this should invovle reading the file line by line and re-writing a new temp file with updated data
+            //         * We should then delete the old file, and replace it with the new one
+            //         */
+            //         System.out.println("found " + playerName);
+            //         break;
+            //     }
+            // 
+            // }
+            //if we et here, our winner wasn't found, add them to the records
+            //TODO: add new winner
+            writer = new PrintWriter(winFile);
+            Date now = new Date();
+            writer.print(playerName + " - " + now.toString() + "\n");
+            writer.close();
+            
+            
+        }
+        catch(Exception ex){
+            System.out.println(winFile + " Error saving file.");
+            System.out.println(ex);
+        }
+        //close the file, return
+        
+        
+        System.out.println("Win saved.");
+    }
     // ======== Helper Functions Below ========
 
     /**
