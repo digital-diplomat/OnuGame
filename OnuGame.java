@@ -53,6 +53,7 @@ public class OnuGame {
 
         // Player's card choice
         int choice = -1;
+        boolean effectUsed = false;
 
         //A menu interface here
         pInput.nextLine();
@@ -81,26 +82,31 @@ public class OnuGame {
 
         // Main game loop
         while (true) {
+            System.out.println("\n========================\n");
             // Display current card
-            System.out.println("\nCurrent card is " + currentCard.toString());
+            System.out.println("Current card is " + currentCard.toString());
 
             // Pre-Turn Conditions
-            if (currentCard.isDrawTwo()) { // Give two cards to current player.
+            if (currentCard.isDrawTwo() && !effectUsed) { // Give two cards to current player.
                 // Check if there are enough cards in the deck, if not refill it
                 refillDeck(2);
                 drawCards(2, deck, getCurrentPlayer());
                 System.out.println("Player " + (playerIndex + 1) + ", draw 2.");
             }
-            if (currentCard.isDrawFour()) { // Give four cards to current player.
+            if (currentCard.isDrawFour() && !effectUsed) { // Give four cards to current player.
                 // Check deck again
                 refillDeck(4);
                 drawCards(4, deck, getCurrentPlayer());
                 System.out.println("Player " + (playerIndex + 1) + ", draw 4.");
             }
-            if (currentCard.isSkip() || currentCard.isDrawTwo() || currentCard.isDrawFour()) {
+            if ((currentCard.isSkip()
+                    || currentCard.isDrawTwo()
+                    || currentCard.isDrawFour())
+                    && !effectUsed) {
                 System.out.println("Player " + (playerIndex + 1) + "'s turn ends.");
                 playerIndex += turnMod; // Skip to next player.
                 playerIndex %= playerOrder.size();
+                effectUsed = true;
             }
 
             if (currentCard.isWild()) { // Wild color selection
@@ -127,7 +133,7 @@ public class OnuGame {
                 startagain
              */
             System.out.println("\n========================\n");
-            System.out.println("\nPlayer " + (playerIndex + 1) + ", your turn.");
+            System.out.println("Player " + (playerIndex + 1) + ", your turn.");
             System.out.println();
             //System.out.println("DEBUG: playerIndex = " + playerIndex);
             System.out.println("-1. [Draw a new card.]");
@@ -179,6 +185,7 @@ public class OnuGame {
 
                         //remove card from player's deck, add it to discard deck
                         discard.add(getCurrentPlayer().remove(choice));
+                        effectUsed = false; // Card was just played, effect not used yet.
                         break;
                     } else {
                         System.out.print("Card does not match!\n> ");
@@ -192,6 +199,7 @@ public class OnuGame {
                 System.out.println("You have one card remaining!"); // UNO!
             } else if (getCurrentPlayer().size() < 1) {
                 System.out.println("You win! Tell your friends!"); // Win cond.
+                pInput.nextLine();
                 break;
             }
             playerIndex += turnMod; // Next player's turn.
@@ -200,6 +208,7 @@ public class OnuGame {
 
         //TODO: Implement saving past and present winners to persistent files!
         //TODO: Find out how to do this without getting an aneurysm 
+        saveWinner();   // Hope this works.
 
         pInput.close();
     }//End of main
