@@ -184,6 +184,9 @@ public class OnuGame {
             playerIndex += turnMod; // Next player's turn.
             playerIndex %= playerOrder.size(); // Prevent overflow.
         } //End of main game loop
+
+        //TODO: Implement saving past and present winners to persistent files!
+        //TODO: Find out how to do this without getting an aneurysm 
         pInput.close();
     }//End of main
 
