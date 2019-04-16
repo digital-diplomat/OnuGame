@@ -203,48 +203,56 @@ public class OnuGame {
 
         pInput.close();
     }//End of main
+
+
     /**
     * When a player wins, lets them enter their name and saves their number of wins to a file
+    * @throws Exception when trying to read and modify files
     */
     public static void saveWinner(){
         //so we can read in records
-        final String winFile = "winners.txt";
         String playerName;
-        int wins = 0;
+        int wins = 1;
+        Date now = new Date();
         //get winner's name
         System.out.println("What is your name? ");
         playerName = pInput.nextLine();
         System.out.println("Congratulations, " + playerName + "!");
-
-        File file = new File(winFile);
+        
+        //open our win file
+        File file = new File("winners.txt");
         try{
             //open the win file, and look for the winner if they exist
-            //Scanner sc = new Scanner(winFile);
+            Scanner sc = new Scanner("winners.txt");
             PrintWriter writer;
-            // while(sc.hasNextLine()) {
-            //     //find if the winner is already in our records
-            //     if(sc.next().equals(playerName)){
-            //         //we found our winner
-            //         /*TODO: update wins or append a date of victory...or both,
-            //         * this should invovle reading the file line by line and re-writing a new temp file with updated data
-            //         * We should then delete the old file, and replace it with the new one
-            //         */
-            //         System.out.println("found " + playerName);
-            //         break;
-            //     }
-            // 
-            // }
+            while(sc.hasNextLine()) {
+                String record = sc.nextLine(); //get a record as a whole line
+                String[] fields = record.split(" "); 
+                /*
+                    Break our record up into fields, in the format
+                    'playerName' 'wins' 'date of most recent win'
+                 */
+                if(fields[0].equals(playerName)){
+                    //we found our winner, increment their wins and save the recrod
+                    wins = Integer.parseInt(fields[1]);
+                    wins++;
+                    record = fields[0] + " " + wins + " " + now.toString();
+                    File temptFile = new File("temp.txt");
+                    
+                }
+             
+            }
             //if we et here, our winner wasn't found, add them to the records
-            //TODO: add new winner
-            writer = new PrintWriter(winFile);
-            Date now = new Date();
+           
+            writer = new PrintWriter("winners.txt");
+            
             writer.print(playerName + " - " + now.toString() + "\n");
             writer.close();
             
             
         }
         catch(Exception ex){
-            System.out.println(winFile + " Error saving file.");
+            System.out.println(" Error saving file.");
             System.out.println(ex);
         }
         //close the file, return
@@ -280,6 +288,7 @@ public class OnuGame {
      * the deck permanently.
      *
      * @param fromDeck
+     * @return newDeck a fresh shuffled deck of cards from a given deck
      */
     private static AList<Card> shuffleFrom(AList<Card> fromDeck) {
         //our new deck and random Object
@@ -304,7 +313,7 @@ public class OnuGame {
     }
 
     /**
-     *Generates new deck in color/value order; will need to be shuffled.
+     * Generates new deck in color/value order; will need to be shuffled.
      * @return new Deck of 108 cards with each type necessary for game function
      */
     private static AList<Card> newDeck() {
