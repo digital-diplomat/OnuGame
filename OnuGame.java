@@ -218,50 +218,21 @@ public class OnuGame {
     public static void saveWinner() {
         //so we can read in records
         String playerName;
-        int wins = 1;
         Date now = new Date();
-        //get winner's name
-        System.out.println("What is your name? ");
-        playerName = pInput.nextLine();
-        System.out.println("Congratulations, " + playerName + "!");
-
-        //open our win file
-        File file = new File("winners.txt");
+        System.out.print("Enter your name: ");
+        Scanner sc = new Scanner(System.in);
+        playerName = sc.nextLine();
         try {
-            //open the win file, and look for the winner if they exist
-            Scanner sc = new Scanner("winners.txt");
-            PrintWriter writer;
-            while (sc.hasNextLine()) {
-                String record = sc.nextLine(); //get a record as a whole line
-                String[] fields = record.split(" ");
-                /*
-                    Break our record up into fields, in the format
-                    'playerName' 'wins' 'date of most recent win'
-                 */
-                if (fields[0].equals(playerName)) {
-                    //we found our winner, increment their wins and save the recrod
-                    wins = Integer.parseInt(fields[1]);
-                    wins++;
-                    record = fields[0] + " " + wins + " " + now.toString();
-                    File temptFile = new File("temp.txt");
+            File winFile = new File("winners.txt");
+            PrintWriter writer = new PrintWriter(winFile);
 
-                }
-
-            }
-            //if we et here, our winner wasn't found, add them to the records
-
-            writer = new PrintWriter("winners.txt");
-
-            writer.print(playerName + " - " + now.toString() + "\n");
+            //save the winner's name and date of their victory to the file
+            writer.println(playerName + " " + now.toString());
+            System.out.println("Victory saved.");
             writer.close();
-
-        } catch (Exception ex) {
-            System.out.println(" Error saving file.");
-            System.out.println(ex);
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not save; file not found.");
         }
-        //close the file, return
-
-        System.out.println("Win saved.");
     }
     // ======== Helper Functions Below ========
 
