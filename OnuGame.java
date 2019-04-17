@@ -32,6 +32,7 @@ public class OnuGame {
 
     static int currentColor;
     static Scanner pInput = new Scanner(System.in); // Player input scanner.
+
     private OnuGame() {
     } // Private constructor prevents instantiation.
 
@@ -46,8 +47,7 @@ public class OnuGame {
                 System.out.println(introWriter.nextLine());
             }
         } catch (FileNotFoundException e) {
-            System.out.println("The title screen file is missing. " 
-                    + "Here's something generic instead.\n");
+            System.out.println("The title screen file is missing. " + "Here's something generic instead.\n");
             System.out.println("Welcome to ONU. Press Enter to begin.");
         }
 
@@ -99,10 +99,7 @@ public class OnuGame {
                 drawCards(4, deck, getCurrentPlayer());
                 System.out.println("Player " + (playerIndex + 1) + ", draw 4.");
             }
-            if ((currentCard.isSkip()
-                    || currentCard.isDrawTwo()
-                    || currentCard.isDrawFour())
-                    && !effectUsed) {
+            if ((currentCard.isSkip() || currentCard.isDrawTwo() || currentCard.isDrawFour()) && !effectUsed) {
                 System.out.println("Player " + (playerIndex + 1) + "'s turn ends.");
                 playerIndex += turnMod; // Skip to next player.
                 playerIndex %= playerOrder.size();
@@ -188,10 +185,10 @@ public class OnuGame {
                         effectUsed = false; // Card was just played, effect not used yet.
                         break;
                     } else {
-                        System.out.print("Card does not match!\n> ");
+                        System.out.println("Card does not match!");
                     }
                 } catch (NoSuchElementException e) {
-                    System.out.print("Invalid choice!\n> ");
+                    System.out.println("Invalid choice!");
                 }
             }
 
@@ -208,17 +205,16 @@ public class OnuGame {
 
         //TODO: Implement saving past and present winners to persistent files!
         //TODO: Find out how to do this without getting an aneurysm 
-        saveWinner();   // Hope this works.
+        saveWinner(); // Hope this works.
 
         pInput.close();
     }//End of main
-
 
     /**
     * When a player wins, lets them enter their name and saves their number of wins to a file
     * @throws Exception when trying to read and modify files
     */
-    public static void saveWinner(){
+    public static void saveWinner() {
         //so we can read in records
         String playerName;
         int wins = 1;
@@ -227,46 +223,43 @@ public class OnuGame {
         System.out.println("What is your name? ");
         playerName = pInput.nextLine();
         System.out.println("Congratulations, " + playerName + "!");
-        
+
         //open our win file
         File file = new File("winners.txt");
-        try{
+        try {
             //open the win file, and look for the winner if they exist
             Scanner sc = new Scanner("winners.txt");
             PrintWriter writer;
-            while(sc.hasNextLine()) {
+            while (sc.hasNextLine()) {
                 String record = sc.nextLine(); //get a record as a whole line
-                String[] fields = record.split(" "); 
+                String[] fields = record.split(" ");
                 /*
                     Break our record up into fields, in the format
                     'playerName' 'wins' 'date of most recent win'
                  */
-                if(fields[0].equals(playerName)){
+                if (fields[0].equals(playerName)) {
                     //we found our winner, increment their wins and save the recrod
                     wins = Integer.parseInt(fields[1]);
                     wins++;
                     record = fields[0] + " " + wins + " " + now.toString();
                     File temptFile = new File("temp.txt");
-                    
+
                 }
-             
+
             }
             //if we et here, our winner wasn't found, add them to the records
-           
+
             writer = new PrintWriter("winners.txt");
-            
+
             writer.print(playerName + " - " + now.toString() + "\n");
             writer.close();
-            
-            
-        }
-        catch(Exception ex){
+
+        } catch (Exception ex) {
             System.out.println(" Error saving file.");
             System.out.println(ex);
         }
         //close the file, return
-        
-        
+
         System.out.println("Win saved.");
     }
     // ======== Helper Functions Below ========
