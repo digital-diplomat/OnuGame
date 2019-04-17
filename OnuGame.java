@@ -82,6 +82,12 @@ public class OnuGame {
 
         // Main game loop
         while (true) {
+            //check if card is wild, if so, make them choose a color
+            if (currentColor == Card.WILD) {
+                System.out.print("Red (1), Yellow (2), Green (3) or Blue(4)?\n> ");
+                currentColor = pInput.nextInt();
+            }
+
             System.out.println("\n========================\n");
             // Display current card
             System.out.println("Current card is " + currentCard.toString());
@@ -169,11 +175,6 @@ public class OnuGame {
                         //change the current color of the game if necessary
                         if (currentColor != currentCard.color) {
                             currentColor = currentCard.color;
-                        }
-                        //check if card is wild, if so, make them choose a color
-                        if (currentColor == Card.WILD) {
-                            System.out.print("Red (1), Yellow (2), Green (3) or Blue(4)?\n> ");
-                            currentColor = pInput.nextInt();
                         }
                         if (currentCard.isReverse()) {
                             System.out.println("Play reversed!");
