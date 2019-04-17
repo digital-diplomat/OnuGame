@@ -198,15 +198,12 @@ public class OnuGame {
             } else if (getCurrentPlayer().size() < 1) {
                 System.out.println("You win! Tell your friends!"); // Win cond.
                 pInput.nextLine();
+                saveWinner();
                 break;
             }
             playerIndex += turnMod; // Next player's turn.
             playerIndex %= playerOrder.size(); // Prevent overflow.
         } //End of main game loop
-
-        //TODO: Implement saving past and present winners to persistent files!
-        //TODO: Find out how to do this without getting an aneurysm 
-        saveWinner(); // Hope this works.
 
         pInput.close();
     }//End of main
@@ -233,6 +230,10 @@ public class OnuGame {
         } catch (FileNotFoundException e) {
             System.out.println("Could not save; file not found.");
         }
+    }
+
+    public static void showWinners() {
+
     }
     // ======== Helper Functions Below ========
 
