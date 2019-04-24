@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.util.NoSuchElementException;
@@ -221,19 +222,46 @@ public class OnuGame {
         playerName = sc.nextLine();
         try {
             File winFile = new File("winners.txt");
+            if (!winFile.exists()) {
+                winFile.createNewFile();
+            }
             PrintWriter writer = new PrintWriter(winFile);
 
             //save the winner's name and date of their victory to the file
             writer.println(playerName + " " + now.toString());
             System.out.println("Victory saved.");
             writer.close();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             System.out.println("Could not save; file not found.");
         }
     }
 
-    public static void showWinners() {
+    /**
+     * Opens the winner file and displays past winners and their time of Victory
+     */
+    private static void showWinners() {
+        try {
+            File winFile = new File("winners.txt");
+            Scanner sc = new Scanner(winFile);
 
+            while (sc.hasNextLine()) {
+                System.out.println(sc.nextLine());
+            }
+            sc.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("No winners file found.");
+        }
+    }
+
+    public static void clearWinners() {
+        try {
+            File winFile = new File("winners.txt");
+            winFile.delete();
+            winFile.createNewFile();
+        } catch (IOException e) {
+            System.out.print("Cannot remove winner list; you may not have ");
+            System.out.println("permission to edit the file.");
+        }
     }
     // ======== Helper Functions Below ========
 
@@ -242,7 +270,7 @@ public class OnuGame {
     * reshuffle and refill it
     * @param cards the number of cards to check for
     */
-    public static void refillDeck(int cards) {
+    private static void refillDeck(int cards) {
         // If the deck doesn't have the amount of cards we need...
         if (deck.size() < cards) {
             for (int i = deck.size(); i >= 0; i--) {
