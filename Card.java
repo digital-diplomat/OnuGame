@@ -81,41 +81,56 @@ public class Card {
 
     @Override
     public String toString() {
+        char smColor = ' '; // Symbol representing color, easy reading.
+        String symbol = "";
         String colString = "";
         String valString = "";
         switch (this.color) {
             case Card.RED:
                 colString = "Red";
+                smColor = '*';
                 break;
             case Card.YELLOW:
                 colString = "Yellow";
+                smColor = '#';
                 break;
             case Card.GREEN:
                 colString = "Green";
+                smColor = '$';
                 break;
             case Card.BLUE:
                 colString = "Blue";
+                smColor = '~';
                 break;
             case Card.WILD:
                 colString = "Wild";
+                valString = "Card!";
+                smColor = '?';
+                symbol = "W!";
         }
         switch (this.value) {
             case Card.DRAW:
                 if (this.isWild()) {
                     valString = "Draw 4";
+                    symbol = "++";
                 } else {
                     valString = "Draw 2";
+                    symbol = "+";
                 }
                 break;
             case Card.SKIP:
                 valString = "Skip";
+                symbol = "S";
                 break;
             case Card.REVERSE:
                 valString = "Reverse";
+                symbol = "R";
                 break;
             default:
-                valString = ((Integer) this.value).toString();
+                if (this.color != Card.WILD) {
+                    symbol = valString = ((Integer) this.value).toString();
+                }
         }
-        return colString + " " + valString;
+        return smColor + symbol + smColor + " | " + colString + " " + valString;
     }
 }
