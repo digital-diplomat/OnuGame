@@ -1,6 +1,7 @@
 /**
  * The base element of the text-based ONU card game.
  * @author Brennon Miller
+ * @author Vaugh Coates
  */
 
 public class Card {
